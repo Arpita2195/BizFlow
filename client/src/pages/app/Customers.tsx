@@ -17,9 +17,19 @@ export default function Customers() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isBroadcastOpen, setIsBroadcastOpen] = useState(false);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
 
   // Form State
-  const [form, setForm] = useState({ name: "", phone: "", email: "", tag: "Regular", notes: "" });
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    tag: "Regular",
+    notes: "",
+    totalSpent: 0,
+    visits: 1
+  });
+
   const [campaignForm, setCampaignForm] = useState({
     title: "Festival Special — 20% OFF",
     audience: "All Active Customers",
@@ -67,33 +77,54 @@ export default function Customers() {
       name: form.name,
       phone: form.phone,
       email: form.email || `${form.name.toLowerCase().replace(/\s+/g, ".")}@example.com`,
-      totalSpent: 0,
-      visits: 1,
+      totalSpent: Number(form.totalSpent) || 0,
+      visits: Number(form.visits) || 1,
       lastVisit: new Date().toISOString().split("T")[0],
       status: "active",
       tags: [form.tag],
       notes: form.notes,
       loyaltyPoints: 50
     });
-    setForm({ name: "", phone: "", email: "", tag: "Regular", notes: "" });
+    setForm({ name: "", phone: "", email: "", tag: "Regular", notes: "", totalSpent: 0, visits: 1 });
     setIsAddOpen(false);
   };
 
   const handleEditSave = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedCustomer) return;
-    updateCustomer(selectedCustomer.id, {
+    const target = editingCustomer || selectedCustomer;
+    if (!target) return;
+
+    const updatedFields = {
       name: form.name,
       phone: form.phone,
       email: form.email,
-      notes: form.notes
-    });
-    setSelectedCustomer(prev => prev ? { ...prev, name: form.name, phone: form.phone, email: form.email, notes: form.notes } : null);
+      tags: [form.tag],
+      notes: form.notes,
+      totalSpent: Number(form.totalSpent) || 0,
+      visits: Number(form.visits) || 0
+    };
+
+    updateCustomer(target.id, updatedFields);
+
+    if (selectedCustomer && selectedCustomer.id === target.id) {
+      setSelectedCustomer(prev => prev ? { ...prev, ...updatedFields } : null);
+    }
+
     setIsEditOpen(false);
+    setEditingCustomer(null);
   };
 
   const openEdit = (c: Customer) => {
-    setForm({ name: c.name, phone: c.phone, email: c.email, tag: c.tags[0] || "Regular", notes: c.notes || "" });
+    setEditingCustomer(c);
+    setForm({
+      name: c.name,
+      phone: c.phone || "",
+      email: c.email || "",
+      tag: (c.tags && c.tags[0]) || "Regular",
+      notes: c.notes || "",
+      totalSpent: c.totalSpent || 0,
+      visits: c.visits || 1
+    });
     setIsEditOpen(true);
   };
 
@@ -110,7 +141,7 @@ export default function Customers() {
             <Button variant="secondary" icon={Megaphone} onClick={() => setIsBroadcastOpen(true)}>
               Broadcast Offer
             </Button>
-            <Button icon={Plus} onClick={() => { setForm({ name: "", phone: "", email: "", tag: "Regular", notes: "" }); setIsAddOpen(true); }}>
+            <Button icon={Plus} onClick={() => { setForm({ name: "", phone: "", email: "", tag: "Regular", notes: "", totalSpent: 0, visits: 1 }); setIsAddOpen(true); }}>
               New {terminology.customerLabel}
             </Button>
           </div>
@@ -253,24 +284,54 @@ export default function Customers() {
       </Modal>
 
       {/* Edit Customer Modal */}
-      <Modal isOpen={isEditOpen} onClose={() => setIsEditOpen(false)} title={`Edit Customer`}>
+      <Modal isOpen={isEditOpen} onClose={() => setIsEditOpen(false)} title={`Edit Customer & Metrics`}>
         <form onSubmit={handleEditSave} className="flex flex-col gap-4 text-xs">
           <div>
-            <label className="font-semibold text-bronze mb-1 block">Full Name</label>
+            <label className="font-semibold text-bronze mb-1 block">Full Name *</label>
             <Input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
           </div>
-          <div>
-            <label className="font-semibold text-bronze mb-1 block">Phone</label>
-            <Input required value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="font-semibold text-bronze mb-1 block">Phone Number *</label>
+              <Input required value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+            </div>
+            <div>
+              <label className="font-semibold text-bronze mb-1 block">Email Address</label>
+              <Input value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+            </div>
           </div>
-          <div>
-            <label className="font-semibold text-bronze mb-1 block">Email</label>
-            <Input value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+
+          <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-gold/10 border border-gold/25">
+            <div>
+              <label className="font-bold text-charcoal mb-1 block">Total Spent / CLV (₹)</label>
+              <Input type="number" min="0" value={form.totalSpent} onChange={e => setForm({ ...form, totalSpent: Number(e.target.value) })} />
+            </div>
+            <div>
+              <label className="font-bold text-charcoal mb-1 block">Total Visits</label>
+              <Input type="number" min="0" value={form.visits} onChange={e => setForm({ ...form, visits: Number(e.target.value) })} />
+            </div>
           </div>
+
           <div>
-            <label className="font-semibold text-bronze mb-1 block">Notes</label>
+            <label className="font-semibold text-bronze mb-1 block">Customer Category Tag</label>
+            <select
+              value={form.tag}
+              onChange={e => setForm({ ...form, tag: e.target.value })}
+              className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2.5 text-xs font-semibold focus:outline-none focus:border-[#C9A24B]"
+            >
+              <option value="Regular">Regular Customer</option>
+              <option value="VIP">VIP Customer</option>
+              <option value="New">New Client</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="font-semibold text-bronze mb-1 block">Preferences & Notes</label>
             <Input value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} />
           </div>
+
           <div className="flex justify-end gap-2 pt-4 border-t border-bronze/20">
             <Button variant="secondary" size="sm" type="button" onClick={() => setIsEditOpen(false)}>Cancel</Button>
             <Button variant="primary" size="sm" type="submit">Update Customer</Button>
@@ -293,25 +354,44 @@ export default function Customers() {
         {selectedCustomer && (
           <div className="flex flex-col gap-6">
             {/* Customer Header summary */}
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-white/60 border border-bronze/20">
-              <Avatar name={selectedCustomer.name} size={48} />
-              <div>
-                <h2 className="font-display text-lg font-bold text-charcoal">{selectedCustomer.name}</h2>
-                <div className="flex items-center gap-3 text-xs text-bronze mt-0.5">
-                  <span className="flex items-center gap-1"><Phone size={12} /> {selectedCustomer.phone}</span>
-                  <span className="flex items-center gap-1"><Mail size={12} /> {selectedCustomer.email}</span>
+            <div className="flex items-center justify-between p-4 rounded-xl bg-white/60 border border-bronze/20">
+              <div className="flex items-center gap-4">
+                <Avatar name={selectedCustomer.name} size={48} />
+                <div>
+                  <h2 className="font-display text-lg font-bold text-charcoal">{selectedCustomer.name}</h2>
+                  <div className="flex items-center gap-3 text-xs text-bronze mt-0.5">
+                    <span className="flex items-center gap-1"><Phone size={12} /> {selectedCustomer.phone}</span>
+                    <span className="flex items-center gap-1"><Mail size={12} /> {selectedCustomer.email}</span>
+                  </div>
                 </div>
               </div>
+              <Button size="sm" variant="secondary" icon={Edit2} onClick={() => openEdit(selectedCustomer)}>
+                Edit Profile
+              </Button>
             </div>
 
             {/* Calculated Metrics */}
             <div className="grid grid-cols-3 gap-3 text-center">
-              <div className="p-3 rounded-lg bg-gold/10 border border-gold/20">
-                <span className="text-[10px] text-bronze font-semibold uppercase">Lifetime Value (CLV)</span>
+              <div
+                onClick={() => openEdit(selectedCustomer)}
+                className="p-3 rounded-lg bg-gold/10 border border-gold/20 cursor-pointer hover:border-gold transition group"
+                title="Click to edit Total Spent & Visits"
+              >
+                <div className="flex items-center justify-center gap-1">
+                  <span className="text-[10px] text-bronze font-semibold uppercase">Lifetime Value (CLV)</span>
+                  <Edit2 size={10} className="text-bronze group-hover:text-espresso opacity-70" />
+                </div>
                 <p className="font-display text-base font-bold text-charcoal mt-1">{formatINR(selectedCustomer.totalSpent)}</p>
               </div>
-              <div className="p-3 rounded-lg bg-white/60 border border-bronze/20">
-                <span className="text-[10px] text-bronze font-semibold uppercase">Visits</span>
+              <div
+                onClick={() => openEdit(selectedCustomer)}
+                className="p-3 rounded-lg bg-white/60 border border-bronze/20 cursor-pointer hover:border-gold transition group"
+                title="Click to edit Total Spent & Visits"
+              >
+                <div className="flex items-center justify-center gap-1">
+                  <span className="text-[10px] text-bronze font-semibold uppercase">Visits</span>
+                  <Edit2 size={10} className="text-bronze group-hover:text-espresso opacity-70" />
+                </div>
                 <p className="font-display text-base font-bold text-charcoal mt-1">{selectedCustomer.visits}</p>
               </div>
               <div className="p-3 rounded-lg bg-white/60 border border-bronze/20">
