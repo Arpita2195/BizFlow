@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body { background: #F4EFE6; color: #1A1512; font-family: 'Inter', sans-serif; }
+:focus-visible { outline: 2px solid #C9A24B; outline-offset: 2px; }
+::selection { background: #C9A24B; color: #1A1512; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #8C7A5B55; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #8C7A5B99; }
+.font-display { font-family: 'Fraunces', serif; }
