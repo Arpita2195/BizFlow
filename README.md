@@ -134,6 +134,27 @@ SMTP_PASSWORD=your_16_digit_app_password
 
 ---
 
+## 🚀 Deploying on Vercel
+
+The project is pre-configured for **1-click serverless deployment on Vercel** (`vercel.json` + `api/index.ts`).
+
+### Steps to Deploy via Vercel Dashboard:
+
+1. Log into [Vercel.com](https://vercel.com) and click **"Add New..." -> "Project"**.
+2. Connect your GitHub account and select repository: **`Arpita2195/BizFlow`**.
+3. Under **Environment Variables**, add the following keys:
+
+   | Key | Example / Value |
+   | :--- | :--- |
+   | `MONGODB_URI` | `mongodb+srv://admin:Arpita123@cluster0.ahqg5sx.mongodb.net/bizflow?appName=Cluster0` |
+   | `SMTP_EMAIL` | `arpitanathwani2195@gmail.com` |
+   | `SMTP_PASSWORD` | `nftgqlzqconuknbp` |
+   | `JWT_SECRET` | `bizflow_super_secret_jwt_key_2026` |
+
+4. Click **Deploy**. Vercel will build the React frontend and deploy the Express API serverless functions automatically!
+
+---
+
 ## ⚡ Quick Start & Installation
 
 ### Prerequisites
