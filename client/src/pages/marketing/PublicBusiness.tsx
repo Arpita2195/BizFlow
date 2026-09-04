@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { MapPin, Phone, Star, Clock, Calendar, CheckCircle, ArrowRight } from "lucide-react";
 import { useApp } from "../../context/AppContext";
-import { formatINR, demoBusinesses } from "../../data/demoData";
+import { formatINR, demoBusinesses, getDemoDataForBusiness } from "../../data/demoData";
 import { Modal, Input, Button, Select } from "../../components/ui/Primitives";
 
 export default function PublicBusiness() {
@@ -10,19 +10,23 @@ export default function PublicBusiness() {
   const { activeBusiness, products, staff, reviews, addBooking, showToast } = useApp();
 
   const business = demoBusinesses.find((b) => b.slug === slug) || activeBusiness;
+  const businessDemoData = getDemoDataForBusiness(business.id);
+  const activeProducts = business.id === activeBusiness.id ? products : businessDemoData.products;
+  const activeStaff = business.id === activeBusiness.id ? staff : businessDemoData.staff;
+  const activeReviews = business.id === activeBusiness.id ? reviews : businessDemoData.reviews;
 
   // Booking Flow Widget State
   const [isBookOpen, setIsBookOpen] = useState(false);
   const [step, setStep] = useState(1);
-  const [selectedService, setSelectedService] = useState(products[0] || null);
-  const [selectedStaff, setSelectedStaff] = useState(staff[0]?.name || "Neha Joshi");
+  const [selectedService, setSelectedService] = useState(activeProducts[0] || null);
+  const [selectedStaff, setSelectedStaff] = useState(activeStaff[0]?.name || "Staff Member");
   const [bookDate, setBookDate] = useState("2026-09-05");
   const [bookTime, setBookTime] = useState("11:30 AM");
   const [custName, setCustName] = useState("");
   const [custPhone, setCustPhone] = useState("");
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
 
-  const services = products.filter((p) => p.type === "service" || p.category === "Services" || p.price > 500);
+  const services = activeProducts.filter((p) => p.type === "service" || p.category === "Services" || p.price > 500);
 
   const handleConfirmBooking = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,20 +47,20 @@ export default function PublicBusiness() {
   };
 
   return (
-    <div className="bg-[#F4EFE6] text-[#1A1512] min-h-screen">
+    <div className="bg-[#F8FAFC] text-[#0F172A] min-h-screen">
       {/* Hero Header */}
-      <div className="bg-[#1A1512] text-[#F4EFE6] border-b border-[#8C7A5B]/20">
+      <div className="bg-[#0F172A] text-[#F8FAFC] border-b border-[#64748B]/20">
         <div className="max-w-4xl mx-auto px-6 py-16 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-[#C9A24B] text-[#1A1512] flex items-center justify-center font-display text-3xl font-bold mx-auto mb-5 shadow-2xl">
+          <div className="w-16 h-16 rounded-2xl bg-[#3B82F6] text-white flex items-center justify-center font-display text-3xl font-bold mx-auto mb-5 shadow-2xl">
             {business.logoInitial}
           </div>
           <h1 className="font-display text-3xl sm:text-5xl font-bold mb-2">{business.name}</h1>
-          <p className="text-sm text-[#F4EFE6]/70 max-w-md mx-auto">{business.tagline}</p>
-          <div className="flex items-center justify-center gap-1 mt-4 text-[#C9A24B]">
+          <p className="text-sm text-[#F8FAFC]/70 max-w-md mx-auto">{business.tagline}</p>
+          <div className="flex items-center justify-center gap-1 mt-4 text-[#3B82F6]">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} size={16} fill="currentColor" strokeWidth={0} />
             ))}
-            <span className="text-[#F4EFE6]/70 text-xs font-semibold ml-1.5">4.9 (312 verified reviews)</span>
+            <span className="text-[#F8FAFC]/70 text-xs font-semibold ml-1.5">4.9 (312 verified reviews)</span>
           </div>
         </div>
       </div>
@@ -71,7 +75,7 @@ export default function PublicBusiness() {
               {services.map((s) => (
                 <div
                   key={s.id}
-                  className="flex items-center justify-between p-4 rounded-xl border border-bronze/15 bg-white/60 hover:border-[#C9A24B]/50 transition cursor-pointer"
+                  className="flex items-center justify-between p-4 rounded-xl border border-bronze/15 bg-white/60 hover:border-[#3B82F6]/50 transition cursor-pointer"
                   onClick={() => { setSelectedService(s); setIsBookOpen(true); }}
                 >
                   <div>
@@ -80,7 +84,7 @@ export default function PublicBusiness() {
                   </div>
                   <div className="text-right">
                     <span className="text-sm font-bold text-charcoal block">{formatINR(s.price)}</span>
-                    <button className="text-xs font-bold text-[#C9A24B] hover:underline">Select & Book →</button>
+                    <button className="text-xs font-bold text-[#3B82F6] hover:underline">Select & Book →</button>
                   </div>
                 </div>
               ))}
@@ -91,11 +95,11 @@ export default function PublicBusiness() {
           <section>
             <h2 className="font-display text-2xl font-bold text-charcoal mb-5">Verified Reviews</h2>
             <div className="flex flex-col gap-4">
-              {reviews.map((r) => (
+              {activeReviews.map((r) => (
                 <div key={r.id} className="p-4 rounded-xl border border-bronze/15 bg-white/60">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-bold text-charcoal">{r.customer}</span>
-                    <div className="flex text-[#C9A24B]">
+                    <div className="flex text-[#3B82F6]">
                       {Array.from({ length: r.rating }).map((_, i) => (
                         <Star key={i} size={13} fill="currentColor" strokeWidth={0} />
                       ))}
@@ -116,7 +120,7 @@ export default function PublicBusiness() {
             </Button>
 
             <div className="flex items-start gap-3 text-xs text-charcoal">
-              <MapPin size={18} className="text-[#C9A24B] shrink-0 mt-0.5" />
+              <MapPin size={18} className="text-[#3B82F6] shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold block">Location</span>
                 <span className="text-bronze">{business.location}</span>
@@ -124,7 +128,7 @@ export default function PublicBusiness() {
             </div>
 
             <div className="flex items-start gap-3 text-xs text-charcoal">
-              <Phone size={18} className="text-[#C9A24B] shrink-0 mt-0.5" />
+              <Phone size={18} className="text-[#3B82F6] shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold block">Phone</span>
                 <span className="text-bronze">{business.phone}</span>
@@ -132,7 +136,7 @@ export default function PublicBusiness() {
             </div>
 
             <div className="flex items-start gap-3 text-xs text-charcoal">
-              <Clock size={18} className="text-[#C9A24B] shrink-0 mt-0.5" />
+              <Clock size={18} className="text-[#3B82F6] shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold block">Business Hours</span>
                 <span className="text-bronze">{business.businessHours}</span>

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowUpRight, Users, CalendarCheck, Receipt, Package, BarChart3, Gift,
   Star, Scissors, Coffee, Camera, Dumbbell, GraduationCap, Store,
-  Mail, Phone, MapPin, Clock, Send, CheckCircle2
+  Mail, Phone, MapPin, Clock, Send, CheckCircle2, ChevronLeft, ChevronRight, Sparkles, Check
 } from "lucide-react";
 import { revenueTrend } from "../../data/demoData";
 import { LineChart, Line, ResponsiveContainer, XAxis, Tooltip } from "recharts";
@@ -19,23 +19,91 @@ const features = [
 ];
 
 const businessTypes = [
-  { icon: Scissors, label: "Salon & Spa" },
-  { icon: Coffee, label: "Café & Restaurant" },
-  { icon: Camera, label: "Photography" },
-  { icon: Dumbbell, label: "Gym & Fitness" },
-  { icon: GraduationCap, label: "Coaching" },
-  { icon: Store, label: "Boutique & more" },
+  { icon: Scissors, label: "Salon & Spa", desc: "Stylist schedules, hair/skin packages & product inventory" },
+  { icon: Coffee, label: "Café & Restaurant", desc: "Diner orders, table bookings & kitchen ingredient stock" },
+  { icon: Camera, label: "Photography Studio", desc: "Wedding shoot timelines, camera gear & client quotes" },
+  { icon: Dumbbell, label: "Gym & Fitness", desc: "Member check-ins, PT session passes & trainer rosters" },
+  { icon: GraduationCap, label: "Coaching Academy", desc: "Batch timetables, student fee invoices & course books" },
+  { icon: Store, label: "Boutique & Retail", desc: "Apparel catalog, customer billing & store sales analytics" },
+];
+
+const heroSlides = [
+  {
+    id: "b1",
+    name: "Glow Studio",
+    tagline: "Salon & Spa",
+    owner: "Priya Nair",
+    initial: "P",
+    revenue: "₹2,45,000",
+    delta: "+12.4%",
+    kpiLabel: "Today's Bookings",
+    kpiVal: "18",
+    topService: "Hair Spa & Scalp Detox — ₹68,000",
+    color: "#3B82F6"
+  },
+  {
+    id: "b2",
+    name: "Brew & Bean Café",
+    tagline: "Café & Bakery",
+    owner: "Arjun Mehta",
+    initial: "A",
+    revenue: "₹1,89,000",
+    delta: "+14.2%",
+    kpiLabel: "Orders Today",
+    kpiVal: "42",
+    topService: "Artisanal Cold Brew — ₹48,000",
+    color: "#22D3EE"
+  },
+  {
+    id: "b4",
+    name: "FitHaus Club",
+    tagline: "Gym & Fitness",
+    owner: "Rohan Verma",
+    initial: "R",
+    revenue: "₹3,85,000",
+    delta: "+18.5%",
+    kpiLabel: "Active Members",
+    kpiVal: "124",
+    topService: "VIP Annual Club Pass — ₹1,80,000",
+    color: "#3B82F6"
+  },
+  {
+    id: "b3",
+    name: "Lens by Aisha",
+    tagline: "Photography Studio",
+    owner: "Aisha Khan",
+    initial: "A",
+    revenue: "₹4,20,000",
+    delta: "+22.1%",
+    kpiLabel: "Booked Events",
+    kpiVal: "8",
+    topService: "Royal Wedding Package — ₹2,50,000",
+    color: "#22D3EE"
+  },
+  {
+    id: "b5",
+    name: "BrightPath Academy",
+    tagline: "Coaching & Tuition",
+    owner: "Kavita Rao",
+    initial: "K",
+    revenue: "₹2,75,000",
+    delta: "+15.8%",
+    kpiLabel: "Active Students",
+    kpiVal: "95",
+    topService: "JEE 1-Year Course — ₹2,10,000",
+    color: "#3B82F6"
+  }
 ];
 
 export default function Landing() {
   return (
-    <div className="bg-ivory text-charcoal">
+    <div className="bg-[#F8FAFC] text-[#0F172A] min-h-screen selection:bg-[#3B82F6] selection:text-white">
       <NavBar />
       <Hero />
       <TrustStrip />
       <FeatureShowcase />
       <HowItWorks />
-      <BusinessTypes />
+      <BusinessTypesSection />
       <AnalyticsPreview />
       <Testimonials />
       <Pricing />
@@ -49,22 +117,31 @@ export default function Landing() {
 
 function NavBar() {
   return (
-    <header className="sticky top-0 z-40 bg-ivory/85 backdrop-blur border-b border-bronze/15">
+    <header className="sticky top-0 z-40 bg-[#F8FAFC]/90 backdrop-blur-md border-b border-[#64748B]/15 transition-all">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-[6px] bg-espresso flex items-center justify-center font-display text-ivory text-sm font-semibold">B</div>
-          <span className="font-display text-[17px]">BizFlow</span>
+          <div className="w-8 h-8 rounded-lg bg-[#3B82F6] flex items-center justify-center font-display text-white text-base font-bold shadow-soft">
+            B
+          </div>
+          <span className="font-display text-lg font-bold text-[#0F172A] tracking-tight">BizFlow</span>
         </div>
-        <nav className="hidden md:flex items-center gap-8 text-sm text-espresso/80">
-          <a href="#features" className="hover:text-charcoal">Features</a>
-          <a href="#how" className="hover:text-charcoal">How it works</a>
-          <a href="#pricing" className="hover:text-charcoal">Pricing</a>
-          <a href="#faq" className="hover:text-charcoal">FAQ</a>
-          <a href="#contact" className="hover:text-charcoal font-semibold text-[#C9A24B]">Contact</a>
+        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#64748B]">
+          <a href="#features" className="hover:text-[#3B82F6] transition">Features</a>
+          <a href="#how" className="hover:text-[#3B82F6] transition">How it works</a>
+          <a href="#pricing" className="hover:text-[#3B82F6] transition">Pricing</a>
+          <a href="#faq" className="hover:text-[#3B82F6] transition">FAQ</a>
+          <a href="#contact" className="hover:text-[#3B82F6] transition font-semibold text-[#3B82F6] flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-pulse" /> Contact
+          </a>
         </nav>
         <div className="flex items-center gap-3">
-          <Link to="/login" className="hidden sm:block text-sm text-espresso/80 hover:text-charcoal">Sign in</Link>
-          <Link to="/register" className="text-sm font-medium bg-espresso text-ivory px-4 py-2 rounded-[8px] hover:bg-charcoal transition shadow-soft">
+          <Link to="/login" className="hidden sm:block text-sm font-semibold text-[#0F172A] hover:text-[#3B82F6] transition px-3 py-2">
+            Sign in
+          </Link>
+          <Link
+            to="/register"
+            className="text-sm font-bold bg-[#3B82F6] text-white px-5 py-2.5 rounded-[10px] hover:bg-[#2563EB] transition-all duration-200 shadow-soft hover:shadow-blueGlow active:scale-95"
+          >
             Start Free
           </Link>
         </div>
@@ -74,77 +151,163 @@ function NavBar() {
 }
 
 function Hero() {
+  const [slideIdx, setSlideIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlideIdx((prev) => (prev + 1) % heroSlides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentSlide = heroSlides[slideIdx];
+
   return (
-    <section className="max-w-6xl mx-auto px-6 pt-16 pb-20 grid lg:grid-cols-[1.1fr,0.9fr] gap-14 items-center">
-      <div>
-        <div className="inline-flex items-center gap-2 text-xs text-bronze border border-bronze/25 rounded-full px-3 py-1 mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-gold" /> Built for local & service businesses
+    <section className="max-w-6xl mx-auto px-6 pt-12 pb-20 grid lg:grid-cols-[1.1fr,0.9fr] gap-12 items-center">
+      <div className="animate-fadeIn">
+        <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#64748B] bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-full px-3.5 py-1.5 mb-6">
+          <span className="w-2 h-2 rounded-full bg-[#22D3EE] animate-ping" /> Built for local & service businesses
         </div>
-        <h1 className="font-display text-[2.6rem] sm:text-6xl leading-[1.05] text-charcoal mb-6">
-          Run your business.<br />Without the busywork.
+        <h1 className="font-display text-4xl sm:text-6xl font-bold leading-[1.08] text-[#0F172A] mb-6 tracking-tight">
+          Run your business.<br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3B82F6] to-[#0891B2]">
+            Without the busywork.
+          </span>
         </h1>
-        <p className="text-lg text-espresso/75 max-w-md mb-8 leading-relaxed">
-          BizFlow brings customers, bookings, invoices, inventory, payments and insights into one simple platform.
+        <p className="text-base sm:text-lg text-[#64748B] max-w-md mb-8 leading-relaxed">
+          BizFlow brings customers, bookings, invoices, inventory, payments and live analytics into one calm, connected platform.
         </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <Link to="/register" className="bg-espresso text-ivory px-6 py-3.5 rounded-[8px] font-medium hover:bg-charcoal transition shadow-soft inline-flex items-center gap-2">
-            Start Free <ArrowUpRight size={16} />
+
+        <div className="flex flex-wrap items-center gap-4 mb-8">
+          <Link
+            to="/register"
+            className="bg-[#3B82F6] text-white px-7 py-3.5 rounded-[10px] font-bold hover:bg-[#2563EB] transition-all duration-200 shadow-soft hover:shadow-blueGlow inline-flex items-center gap-2 active:scale-95 text-sm"
+          >
+            Start Free Workspace <ArrowUpRight size={17} />
           </Link>
-          <Link to="/demo" className="border border-bronze/40 text-espresso px-6 py-3.5 rounded-[8px] font-medium hover:bg-espresso/5 transition">
-            View Demo
+          <Link
+            to="/demo"
+            className="border border-[#64748B]/30 bg-white text-[#0F172A] px-6 py-3.5 rounded-[10px] font-semibold hover:bg-[#3B82F6]/5 hover:border-[#3B82F6]/40 transition text-sm shadow-card"
+          >
+            Explore Interactive Demo
           </Link>
+        </div>
+
+        {/* Vertical Niche Pills Switcher */}
+        <div className="flex items-center gap-2 flex-wrap pt-2 border-t border-[#64748B]/15">
+          <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider mr-1">Explore Niches:</span>
+          {heroSlides.map((s, i) => (
+            <button
+              key={s.id}
+              onClick={() => setSlideIdx(i)}
+              className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                i === slideIdx
+                  ? "bg-[#3B82F6] text-white shadow-soft scale-105"
+                  : "bg-white border border-[#64748B]/20 text-[#64748B] hover:bg-[#3B82F6]/10"
+              }`}
+            >
+              {s.tagline.split(" ")[0]}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div className="relative">
-        <div className="bg-charcoal rounded-[16px] p-6 shadow-xl">
-          <div className="flex items-center justify-between mb-5">
+      {/* Hero Interactive Carousel Visual Box */}
+      <div className="relative animate-fadeIn">
+        <div className="bg-[#0F172A] rounded-[20px] p-6 shadow-2xl border border-[#64748B]/30 relative overflow-hidden group">
+          {/* Subtle Glow Overlay */}
+          <div className="absolute -right-16 -top-16 w-48 h-48 rounded-full bg-[#3B82F6]/20 blur-3xl pointer-events-none" />
+          <div className="absolute -left-16 -bottom-16 w-48 h-48 rounded-full bg-[#22D3EE]/15 blur-3xl pointer-events-none" />
+
+          {/* Header */}
+          <div className="flex items-center justify-between mb-5 relative z-10">
             <div>
-              <div className="text-ivory/50 text-xs mb-1">Glow Studio</div>
-              <div className="text-ivory font-display text-xl">Good morning, Priya</div>
+              <div className="text-[#22D3EE] text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] animate-pulse" />
+                {currentSlide.name} ({currentSlide.tagline})
+              </div>
+              <div className="text-white font-display text-xl font-bold mt-0.5">
+                Good morning, {currentSlide.owner} 👋
+              </div>
             </div>
-            <div className="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-medium">P</div>
+            <div className="w-10 h-10 rounded-xl bg-[#3B82F6] text-white flex items-center justify-center font-display font-bold text-base shadow-soft">
+              {currentSlide.initial}
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <MiniStat label="Revenue" value="₹2,45,000" delta="+12.4%" />
-            <MiniStat label="Today's Bookings" value="18" delta="+3" />
+
+          {/* Mini Stats Grid */}
+          <div className="grid grid-cols-2 gap-3 mb-4 relative z-10">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl p-3.5">
+              <div className="text-white/60 text-xs font-medium mb-1">Total Revenue</div>
+              <div className="text-white font-display text-2xl font-bold">{currentSlide.revenue}</div>
+              <div className="text-[#22D3EE] text-xs font-bold mt-1">{currentSlide.delta} vs last month</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl p-3.5">
+              <div className="text-white/60 text-xs font-medium mb-1">{currentSlide.kpiLabel}</div>
+              <div className="text-white font-display text-2xl font-bold">{currentSlide.kpiVal}</div>
+              <div className="text-[#3B82F6] text-xs font-bold mt-1">Live active today</div>
+            </div>
           </div>
-          <div className="bg-white/[0.04] rounded-[10px] p-4 h-32">
+
+          {/* Chart Graphic Container */}
+          <div className="bg-white/5 rounded-xl p-4 h-32 relative z-10 border border-white/5">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={revenueTrend}>
                 <XAxis dataKey="month" hide />
-                <Tooltip contentStyle={{ background: "#1A1512", border: "1px solid #8C7A5B44", borderRadius: 8, fontSize: 12 }} />
-                <Line type="monotone" dataKey="revenue" stroke="#C9A24B" strokeWidth={2} dot={false} />
+                <Tooltip contentStyle={{ background: "#0F172A", border: "1px solid #3B82F644", borderRadius: 8, fontSize: 12, color: "#fff" }} />
+                <Line type="monotone" dataKey="revenue" stroke="#3B82F6" strokeWidth={2.5} dot={false} />
+                <Line type="monotone" dataKey="expenses" stroke="#22D3EE" strokeWidth={1.8} strokeDasharray="3 3" dot={false} />
               </LineChart>
             </ResponsiveContainer>
           </div>
+
+          {/* Controls Footer */}
+          <div className="flex items-center justify-between mt-4 pt-3 border-t border-white/10 text-xs text-white/70 relative z-10">
+            <div className="flex items-center gap-1.5 ml-auto">
+              {heroSlides.map((_, i) => (
+                <span
+                  key={i}
+                  onClick={() => setSlideIdx(i)}
+                  className={`h-1.5 rounded-full transition-all cursor-pointer ${i === slideIdx ? "w-6 bg-[#3B82F6]" : "w-1.5 bg-white/30"}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="absolute -bottom-5 -left-5 bg-ivory border border-bronze/20 rounded-[10px] px-4 py-3 shadow-lg hidden sm:block">
-          <div className="text-xs text-bronze">Your top service</div>
-          <div className="text-sm font-medium text-charcoal">Hair Spa — ₹68,000</div>
+
+        {/* Floating Accent Badge */}
+        <div className="absolute -bottom-5 left-6 z-20 bg-white border border-[#64748B]/20 rounded-xl px-4 py-3 shadow-2xl hidden sm:block">
+          <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Top Performing Item</div>
+          <div className="text-xs font-bold text-[#0F172A] mt-0.5">{currentSlide.topService}</div>
         </div>
       </div>
     </section>
   );
 }
 
-function MiniStat({ label, value, delta }: { label: string; value: string; delta: string }) {
-  return (
-    <div className="bg-white/[0.04] rounded-[10px] p-3">
-      <div className="text-ivory/45 text-[11px] mb-1">{label}</div>
-      <div className="text-ivory font-display text-lg leading-none">{value}</div>
-      <div className="text-gold text-[11px] mt-1">{delta}</div>
-    </div>
-  );
-}
-
 function TrustStrip() {
-  const names = ["Glow Studio", "Brew & Bean", "Lens by Aisha", "FitHaus", "BrightPath Academy"];
+  const names = [
+    { name: "Glow Studio", type: "Salon & Spa" },
+    { name: "Brew & Bean Café", type: "Café & Bakery" },
+    { name: "Lens by Aisha", type: "Photography" },
+    { name: "FitHaus Club", type: "Gym & Fitness" },
+    { name: "BrightPath Academy", type: "Coaching" },
+  ];
   return (
-    <section className="border-y border-bronze/15 bg-white/40">
-      <div className="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm text-bronze">
-        <span className="text-xs uppercase tracking-wide text-bronze/70 mr-2">Trusted by modern small businesses</span>
-        {names.map(n => <span key={n} className="font-display text-base text-espresso/70">{n}</span>)}
+    <section className="border-y border-[#64748B]/15 bg-white/70 py-6">
+      <div className="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-6">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#64748B]">
+          Trusted by 500+ Local Businesses Across India
+        </span>
+        <div className="flex flex-wrap items-center gap-8 text-sm">
+          {names.map((n) => (
+            <div key={n.name} className="flex items-center gap-2 group cursor-pointer">
+              <span className="w-2 h-2 rounded-full bg-[#3B82F6] group-hover:bg-[#22D3EE] transition" />
+              <span className="font-display font-bold text-[#0F172A] group-hover:text-[#3B82F6] transition">{n.name}</span>
+              <span className="text-[10px] text-[#64748B] font-semibold bg-[#64748B]/10 px-1.5 py-0.5 rounded">{n.type}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -153,20 +316,29 @@ function TrustStrip() {
 function FeatureShowcase() {
   return (
     <section id="features" className="max-w-6xl mx-auto px-6 py-24">
-      <div className="max-w-xl mb-14">
-        <h2 className="font-display text-3xl sm:text-4xl text-charcoal mb-4">Everything you need in one place</h2>
-        <p className="text-espresso/70 leading-relaxed">
-          No more juggling a notebook, a WhatsApp group and three different apps. BizFlow replaces them with one calm, connected workspace.
+      <div className="text-center max-w-2xl mx-auto mb-16">
+        <span className="text-xs font-bold text-[#3B82F6] uppercase tracking-wider bg-[#3B82F6]/10 px-3 py-1 rounded-full border border-[#3B82F6]/20">
+          Complete Platform Toolkit
+        </span>
+        <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#0F172A] mt-4 mb-4">
+          Everything you need in one place
+        </h2>
+        <p className="text-base text-[#64748B] leading-relaxed">
+          No more juggling a notebook, a WhatsApp group and three separate apps. BizFlow replaces them with one calm, connected workspace.
         </p>
       </div>
+
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {features.map(({ icon: Icon, title, body }) => (
-          <div key={title} className="p-6 rounded-[12px] border border-bronze/15 bg-white/50 hover:border-gold/40 transition-colors">
-            <div className="w-10 h-10 rounded-[8px] bg-gold/15 flex items-center justify-center mb-4">
-              <Icon size={18} className="text-[#7A5E22]" />
+          <div
+            key={title}
+            className="p-7 rounded-2xl border border-[#64748B]/15 bg-white hover:border-[#3B82F6]/40 hover:shadow-blueGlow transition-all duration-300 group"
+          >
+            <div className="w-12 h-12 rounded-xl bg-[#3B82F6]/10 text-[#3B82F6] group-hover:bg-[#3B82F6] group-hover:text-white flex items-center justify-center mb-5 transition-all duration-300 shadow-soft">
+              <Icon size={22} strokeWidth={2} />
             </div>
-            <h3 className="font-display text-lg text-charcoal mb-1.5">{title}</h3>
-            <p className="text-sm text-espresso/70 leading-relaxed">{body}</p>
+            <h3 className="font-display text-lg font-bold text-[#0F172A] mb-2 group-hover:text-[#3B82F6] transition">{title}</h3>
+            <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">{body}</p>
           </div>
         ))}
       </div>
@@ -176,20 +348,29 @@ function FeatureShowcase() {
 
 function HowItWorks() {
   const steps = [
-    { title: "Set up your business", body: "Pick your business type, add your services and hours in a guided setup." },
-    { title: "Bring your work in", body: "Add customers, products and staff — or start fresh and grow into it." },
-    { title: "Run your day from BizFlow", body: "Bookings, invoices and payments flow through one calm dashboard." },
+    { num: "01", title: "Set up your business", body: "Pick your business type (Salon, Café, Gym, Coaching), add services & hours in under 2 minutes." },
+    { num: "02", title: "Bring your data in", body: "Import your customer contacts, inventory products & staff rosters — or start fresh." },
+    { num: "03", title: "Run your daily flow", body: "Bookings, GST invoices, expense tracking & live analytics operate seamlessly." },
   ];
   return (
-    <section id="how" className="bg-charcoal text-ivory">
-      <div className="max-w-6xl mx-auto px-6 py-24">
-        <h2 className="font-display text-3xl sm:text-4xl mb-14 max-w-lg">How BizFlow works</h2>
-        <div className="grid sm:grid-cols-3 gap-10">
-          {steps.map((s, i) => (
-            <div key={s.title} className="border-t border-gold/30 pt-5">
-              <div className="text-gold font-display text-2xl mb-3">{String(i + 1).padStart(2, "0")}</div>
-              <h3 className="text-lg font-medium mb-2">{s.title}</h3>
-              <p className="text-sm text-ivory/60 leading-relaxed">{s.body}</p>
+    <section id="how" className="bg-[#0F172A] text-white py-24 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[#3B82F6]/10 blur-3xl pointer-events-none" />
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <div className="text-center max-w-xl mx-auto mb-16">
+          <span className="text-xs font-bold text-[#22D3EE] uppercase tracking-wider bg-[#22D3EE]/15 px-3 py-1 rounded-full border border-[#22D3EE]/30">
+            Simple 3-Step Setup
+          </span>
+          <h2 className="font-display text-3xl sm:text-5xl font-bold mt-4">How BizFlow Works</h2>
+        </div>
+
+        <div className="grid sm:grid-cols-3 gap-8">
+          {steps.map((s) => (
+            <div key={s.num} className="bg-white/5 border border-white/10 rounded-2xl p-7 hover:border-[#22D3EE]/40 transition group">
+              <div className="text-[#22D3EE] font-display text-3xl font-bold mb-4 group-hover:scale-110 transition-transform origin-left">
+                {s.num}
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">{s.title}</h3>
+              <p className="text-xs sm:text-sm text-white/70 leading-relaxed">{s.body}</p>
             </div>
           ))}
         </div>
@@ -198,16 +379,39 @@ function HowItWorks() {
   );
 }
 
-function BusinessTypes() {
+function BusinessTypesSection() {
+  const [selectedIdx, setSelectedIdx] = useState(0);
+
   return (
     <section className="max-w-6xl mx-auto px-6 py-24">
-      <h2 className="font-display text-3xl sm:text-4xl text-charcoal mb-3 max-w-lg">Built to fit your kind of business</h2>
-      <p className="text-espresso/70 mb-12 max-w-lg">BizFlow adapts what it shows you based on how you work.</p>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        {businessTypes.map(({ icon: Icon, label }) => (
-          <div key={label} className="flex items-center gap-3 p-4 rounded-[10px] border border-bronze/15 bg-white/50">
-            <Icon size={18} className="text-bronze" />
-            <span className="text-sm text-charcoal">{label}</span>
+      <div className="text-center max-w-xl mx-auto mb-14">
+        <span className="text-xs font-bold text-[#3B82F6] uppercase tracking-wider bg-[#3B82F6]/10 px-3 py-1 rounded-full border border-[#3B82F6]/20">
+          Multi-Tenant Architecture
+        </span>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#0F172A] mt-4 mb-3">
+          Built to fit your specific niche
+        </h2>
+        <p className="text-sm text-[#64748B]">BizFlow dynamically customizes its workspace terminology and tools based on your industry.</p>
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {businessTypes.map(({ icon: Icon, label, desc }, i) => (
+          <div
+            key={label}
+            onClick={() => setSelectedIdx(i)}
+            className={`p-5 rounded-2xl border transition-all duration-200 cursor-pointer ${
+              i === selectedIdx
+                ? "bg-white border-[#3B82F6] shadow-blueGlow scale-[1.02]"
+                : "bg-white/60 border-[#64748B]/15 hover:border-[#3B82F6]/30 hover:bg-white"
+            }`}
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition ${i === selectedIdx ? "bg-[#3B82F6] text-white" : "bg-[#3B82F6]/10 text-[#3B82F6]"}`}>
+                <Icon size={20} />
+              </div>
+              <h3 className="font-bold text-sm text-[#0F172A]">{label}</h3>
+            </div>
+            <p className="text-xs text-[#64748B] leading-relaxed pl-13">{desc}</p>
           </div>
         ))}
       </div>
@@ -217,27 +421,41 @@ function BusinessTypes() {
 
 function AnalyticsPreview() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-24 grid lg:grid-cols-2 gap-14 items-center">
+    <section className="max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
       <div>
-        <h2 className="font-display text-3xl sm:text-4xl text-charcoal mb-4">Know your numbers, without the spreadsheet</h2>
-        <p className="text-espresso/70 leading-relaxed mb-6">
-          Revenue is up 14.2% compared with last month. Three payments are overdue. Your top-performing service is Hair Spa. BizFlow tells you what matters, the moment you open it.
+        <span className="text-xs font-bold text-[#3B82F6] uppercase tracking-wider bg-[#3B82F6]/10 px-3 py-1 rounded-full">
+          Real-Time Insights
+        </span>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#0F172A] mt-4 mb-4">
+          Know your numbers, without complex spreadsheets
+        </h2>
+        <p className="text-sm text-[#64748B] leading-relaxed mb-6">
+          Monthly revenue is up 14.2%. Overdue invoices are flagged automatically. Top revenue performing services and low stock alerts are surfaced right on your dashboard.
         </p>
-        <Link to="/demo" className="text-sm font-medium text-espresso inline-flex items-center gap-1.5 border-b border-gold pb-0.5">
-          See analytics in the demo <ArrowUpRight size={14} />
+        <Link
+          to="/demo"
+          className="text-xs font-bold text-white bg-[#3B82F6] px-5 py-2.5 rounded-xl hover:bg-[#2563EB] transition shadow-soft inline-flex items-center gap-2"
+        >
+          See Analytics in Demo Workspace <ArrowUpRight size={15} />
         </Link>
       </div>
-      <div className="bg-white/60 border border-bronze/15 rounded-[14px] p-6 shadow-card">
+
+      <div className="bg-white border border-[#64748B]/20 rounded-2xl p-6 shadow-card relative">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-sm text-bronze">Revenue vs. Expenses</span>
-          <span className="text-xs text-[#3E5C3A]">+14.2%</span>
+          <div>
+            <span className="text-sm font-bold text-[#0F172A] block">Monthly Revenue vs. Expenses</span>
+            <span className="text-xs text-[#64748B]">Automated real-time graph</span>
+          </div>
+          <span className="text-xs font-bold text-[#22D3EE] bg-[#22D3EE]/15 border border-[#22D3EE]/30 px-2.5 py-1 rounded-full">
+            +14.2% Growth
+          </span>
         </div>
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={220}>
           <LineChart data={revenueTrend}>
-            <XAxis dataKey="month" stroke="#8C7A5B" fontSize={12} tickLine={false} axisLine={false} />
-            <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid #8C7A5B33", fontSize: 12 }} />
-            <Line type="monotone" dataKey="revenue" stroke="#3D2B1F" strokeWidth={2.5} dot={false} />
-            <Line type="monotone" dataKey="expenses" stroke="#C9A24B" strokeWidth={2} dot={false} />
+            <XAxis dataKey="month" stroke="#64748B" fontSize={12} tickLine={false} axisLine={false} />
+            <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid #64748B33", fontSize: 12 }} />
+            <Line type="monotone" dataKey="revenue" stroke="#0F172A" strokeWidth={2.5} dot={{ r: 4, fill: "#0F172A" }} />
+            <Line type="monotone" dataKey="expenses" stroke="#3B82F6" strokeWidth={2} dot={{ r: 4, fill: "#3B82F6" }} />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -247,27 +465,61 @@ function AnalyticsPreview() {
 
 function Testimonials() {
   const quotes = [
-    { name: "Priya Nair", role: "Owner, Glow Studio", text: "I used to track bookings on paper. Now I can see my whole week and who's coming in next, at a glance." },
-    { name: "Arjun Mehta", role: "Owner, Brew & Bean", text: "Inventory alerts alone have saved me from running out of stock twice this month." },
-    { name: "Aisha Khan", role: "Founder, Lens by Aisha", text: "My clients book directly from my BizFlow page now — no more back and forth over messages." },
+    { name: "Priya Nair", role: "Owner, Glow Studio (Salon & Spa)", text: "I used to track appointments on paper registers. Now I can see my whole week's client schedule and who's coming in next, right on my mobile phone!" },
+    { name: "Arjun Mehta", role: "Owner, Brew & Bean Café", text: "BizFlow's automated low stock alerts saved us from running out of coffee bean stock twice during weekend rush hours." },
+    { name: "Aisha Khan", role: "Founder, Lens by Aisha", text: "My clients book shoots directly from my public BizFlow page now — no more endless back and forth messages on WhatsApp." },
+    { name: "Rohan Verma", role: "Head Coach, FitHaus Club", text: "Managing member renewals and trainer payouts used to take hours. BizFlow handles it all in a few clicks." }
   ];
+
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  const prev = () => setActiveTestimonial((curr) => (curr === 0 ? quotes.length - 1 : curr - 1));
+  const next = () => setActiveTestimonial((curr) => (curr === quotes.length - 1 ? 0 : curr + 1));
+
   return (
-    <section className="bg-white/40 border-y border-bronze/15">
-      <div className="max-w-6xl mx-auto px-6 py-24">
-        <h2 className="font-display text-3xl sm:text-4xl text-charcoal mb-14 max-w-lg">Business owners, not just users</h2>
-        <div className="grid sm:grid-cols-3 gap-8">
-          {quotes.map(q => (
-            <div key={q.name}>
-              <div className="flex gap-0.5 mb-4 text-gold">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} size={14} fill="currentColor" strokeWidth={0} />)}
-              </div>
-              <p className="text-espresso/80 leading-relaxed mb-4">"{q.text}"</p>
-              <div className="text-sm">
-                <div className="font-medium text-charcoal">{q.name}</div>
-                <div className="text-bronze text-xs">{q.role}</div>
-              </div>
+    <section className="bg-white border-y border-[#64748B]/15 py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-xl mx-auto mb-14">
+          <span className="text-xs font-bold text-[#3B82F6] uppercase tracking-wider bg-[#3B82F6]/10 px-3 py-1 rounded-full">
+            Real Customer Success
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#0F172A] mt-3">Loved by Business Owners</h2>
+        </div>
+
+        {/* Carousel Slide Card */}
+        <div className="max-w-3xl mx-auto bg-[#F8FAFC] border border-[#64748B]/20 rounded-2xl p-8 sm:p-10 shadow-card relative">
+          <div className="flex gap-1 mb-6 text-[#3B82F6]">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} size={18} fill="currentColor" strokeWidth={0} />
+            ))}
+          </div>
+
+          <p className="text-base sm:text-lg text-[#0F172A] font-medium leading-relaxed mb-8 italic">
+            "{quotes[activeTestimonial].text}"
+          </p>
+
+          <div className="flex items-center justify-between pt-4 border-t border-[#64748B]/20">
+            <div>
+              <h4 className="font-bold text-sm text-[#0F172A]">{quotes[activeTestimonial].name}</h4>
+              <p className="text-xs text-[#64748B]">{quotes[activeTestimonial].role}</p>
             </div>
-          ))}
+
+            {/* Slider Buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={prev}
+                className="w-9 h-9 rounded-full bg-white border border-[#64748B]/30 flex items-center justify-center text-[#0F172A] hover:bg-[#3B82F6] hover:text-white transition cursor-pointer"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={next}
+                className="w-9 h-9 rounded-full bg-white border border-[#64748B]/30 flex items-center justify-center text-[#0F172A] hover:bg-[#3B82F6] hover:text-white transition cursor-pointer"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -276,37 +528,58 @@ function Testimonials() {
 
 function Pricing() {
   const plans = [
-    { name: "Free", price: "₹0", period: "forever", features: ["100 customers", "50 invoices / month", "Basic dashboard"], cta: "Start Free" },
-    { name: "Professional", price: "₹1,499", period: "/month", features: ["Unlimited customers", "Unlimited invoices", "Full analytics", "Loyalty program"], cta: "Start Free Trial", highlight: true },
-    { name: "Business", price: "₹3,499", period: "/month", features: ["Everything in Professional", "AI Assistant", "Staff management", "Advanced analytics"], cta: "Start Free Trial" },
+    { name: "Starter Free", price: "₹0", period: "forever", features: ["Up to 100 customer profiles", "50 GST invoices / month", "Basic financial dashboard", "Standard support"], cta: "Start Free Workspace" },
+    { name: "Professional", price: "₹1,499", period: "/month", features: ["Unlimited customer profiles", "Unlimited GST invoices", "Full analytics & revenue graphs", "Loyalty program & rewards", "Custom domain / storefront page"], cta: "Start 14-Day Free Trial", highlight: true },
+    { name: "Business", price: "₹3,499", period: "/month", features: ["Everything in Professional", "BizFlow AI Assistant", "Staff roster & commission logs", "Multi-branch analytics", "Dedicated account support"], cta: "Start Free Business Trial" },
   ];
   return (
     <section id="pricing" className="max-w-6xl mx-auto px-6 py-24">
-      <h2 className="font-display text-3xl sm:text-4xl text-charcoal mb-3 text-center">Simple pricing that grows with you</h2>
-      <p className="text-espresso/70 text-center mb-14">Start free. Upgrade only when you need to.</p>
-      <div className="grid sm:grid-cols-3 gap-6 items-start">
-        {plans.map(p => (
+      <div className="text-center max-w-xl mx-auto mb-16">
+        <span className="text-xs font-bold text-[#3B82F6] uppercase tracking-wider bg-[#3B82F6]/10 px-3 py-1 rounded-full">
+          Transparent Pricing
+        </span>
+        <h2 className="font-display text-3xl sm:text-5xl font-bold text-[#0F172A] mt-4 mb-3">Simple plans that scale with you</h2>
+        <p className="text-sm text-[#64748B]">Start completely free. Upgrade only when your business expands.</p>
+      </div>
+
+      <div className="grid sm:grid-cols-3 gap-6 items-stretch">
+        {plans.map((p) => (
           <div
             key={p.name}
-            className={`rounded-[14px] p-7 border ${p.highlight ? "bg-charcoal text-ivory border-charcoal shadow-xl sm:-translate-y-3" : "bg-white/50 border-bronze/15 text-charcoal"}`}
+            className={`rounded-2xl p-8 border flex flex-col justify-between transition-all duration-300 ${
+              p.highlight
+                ? "bg-[#0F172A] text-white border-[#3B82F6] shadow-2xl scale-[1.03] relative"
+                : "bg-white border-[#64748B]/20 text-[#0F172A] hover:border-[#3B82F6]/30"
+            }`}
           >
-            <div className={`text-sm mb-1 ${p.highlight ? "text-gold" : "text-bronze"}`}>{p.name}</div>
-            <div className="flex items-end gap-1 mb-6">
-              <span className="font-display text-3xl">{p.price}</span>
-              <span className={`text-sm mb-1 ${p.highlight ? "text-ivory/50" : "text-bronze"}`}>{p.period}</span>
+            {p.highlight && (
+              <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#22D3EE] text-[#0F172A] font-bold text-[10px] uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+                ★ Most Popular
+              </span>
+            )}
+            <div>
+              <div className={`text-xs font-bold uppercase tracking-wider mb-2 ${p.highlight ? "text-[#22D3EE]" : "text-[#3B82F6]"}`}>
+                {p.name}
+              </div>
+              <div className="flex items-end gap-1 mb-6">
+                <span className="font-display text-4xl font-bold">{p.price}</span>
+                <span className={`text-xs mb-1 font-semibold ${p.highlight ? "text-white/60" : "text-[#64748B]"}`}>{p.period}</span>
+              </div>
+              <ul className="space-y-3 mb-8 text-xs sm:text-sm">
+                {p.features.map((f) => (
+                  <li key={f} className={`flex items-start gap-2.5 ${p.highlight ? "text-white/80" : "text-[#64748B]"}`}>
+                    <Check size={16} className={`shrink-0 mt-0.5 ${p.highlight ? "text-[#22D3EE]" : "text-[#3B82F6]"}`} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="space-y-2.5 mb-7 text-sm">
-              {p.features.map(f => (
-                <li key={f} className={`flex items-start gap-2 ${p.highlight ? "text-ivory/80" : "text-espresso/75"}`}>
-                  <span className={`mt-1.5 w-1 h-1 rounded-full shrink-0 ${p.highlight ? "bg-gold" : "bg-bronze"}`} />
-                  {f}
-                </li>
-              ))}
-            </ul>
             <Link
               to="/register"
-              className={`block text-center py-2.5 rounded-[8px] text-sm font-medium transition ${
-                p.highlight ? "bg-gold text-charcoal hover:bg-gold/90" : "bg-espresso text-ivory hover:bg-charcoal"
+              className={`block text-center py-3 rounded-xl text-xs font-bold transition shadow-soft ${
+                p.highlight
+                  ? "bg-[#3B82F6] text-white hover:bg-[#2563EB]"
+                  : "bg-[#0F172A] text-white hover:bg-[#3B82F6]"
               }`}
             >
               {p.cta}
@@ -320,22 +593,22 @@ function Pricing() {
 
 function FAQ() {
   const items = [
-    { q: "Do I need a credit card to start?", a: "No. The Free plan needs nothing more than an email address." },
-    { q: "Can I switch business types later?", a: "Yes, though we recommend picking the closest match at setup since it shapes your dashboard." },
-    { q: "Is my data shared with other businesses on BizFlow?", a: "No. Every business's data is fully isolated at the database level." },
-    { q: "Can my customers book online?", a: "Yes — every business gets a public booking page customers can use directly." },
+    { q: "Do I need a credit card to sign up for the free tier?", a: "No credit card required. You get instant access with just your business name and email." },
+    { q: "Can I change my business type after account creation?", a: "Yes! You can switch or reconfigure your business workspace settings at any time." },
+    { q: "Is my business data isolated and secure?", a: "Yes. Every workspace uses encrypted session isolation and MongoDB Atlas database storage." },
+    { q: "Do my clients get an online storefront page?", a: "Yes! Every BizFlow workspace gets a dedicated storefront link to display services & accept online bookings." },
   ];
   return (
-    <section id="faq" className="max-w-3xl mx-auto px-6 py-24">
-      <h2 className="font-display text-3xl sm:text-4xl text-charcoal mb-10 text-center">Questions, answered</h2>
-      <div className="divide-y divide-bronze/15 border-y border-bronze/15">
-        {items.map(item => (
+    <section id="faq" className="max-w-3xl mx-auto px-6 py-20">
+      <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#0F172A] mb-10 text-center">Frequently Asked Questions</h2>
+      <div className="divide-y divide-[#64748B]/15 border-y border-[#64748B]/15">
+        {items.map((item) => (
           <details key={item.q} className="group py-5">
-            <summary className="flex items-center justify-between cursor-pointer text-charcoal font-medium list-none">
+            <summary className="flex items-center justify-between cursor-pointer text-[#0F172A] font-bold text-sm sm:text-base list-none">
               {item.q}
-              <span className="text-bronze group-open:rotate-45 transition-transform text-xl leading-none">+</span>
+              <span className="text-[#3B82F6] group-open:rotate-45 transition-transform text-2xl font-bold leading-none">+</span>
             </summary>
-            <p className="text-sm text-espresso/70 mt-3 leading-relaxed">{item.a}</p>
+            <p className="text-xs sm:text-sm text-[#64748B] mt-3 leading-relaxed">{item.a}</p>
           </details>
         ))}
       </div>
@@ -345,9 +618,9 @@ function FAQ() {
 
 function ContactSection() {
   const { showToast } = useApp();
-  const [form, setForm] = React.useState({ name: "", email: "", type: "General Inquiry", message: "" });
-  const [submitted, setSubmitted] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [form, setForm] = useState({ name: "", email: "", type: "General Inquiry", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -360,13 +633,13 @@ function ContactSection() {
       body: JSON.stringify(form)
     })
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       setSubmitted(true);
       setLoading(false);
       showToast("📩 Inquiry sent! Notification email dispatched to arpitanathwani2155@gmail.com", "success");
       setForm({ name: "", email: "", type: "General Inquiry", message: "" });
     })
-    .catch((err) => {
+    .catch(() => {
       setSubmitted(true);
       setLoading(false);
       showToast("📩 Inquiry received! Email alert dispatched to arpitanathwani2155@gmail.com", "success");
@@ -374,80 +647,80 @@ function ContactSection() {
   };
 
   return (
-    <section id="contact" className="max-w-6xl mx-auto px-6 py-20 border-t border-bronze/15">
+    <section id="contact" className="max-w-6xl mx-auto px-6 py-24 border-t border-[#64748B]/15">
       <div className="text-center max-w-2xl mx-auto mb-14">
-        <span className="text-xs font-bold text-[#C9A24B] uppercase tracking-wider bg-[#C9A24B]/15 px-3 py-1 rounded-full">
+        <span className="text-xs font-bold text-[#3B82F6] uppercase tracking-wider bg-[#3B82F6]/10 px-3.5 py-1 rounded-full border border-[#3B82F6]/20">
           Get In Touch
         </span>
-        <h2 className="font-display text-3xl sm:text-4xl text-charcoal mt-3 mb-3">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#0F172A] mt-4 mb-3">
           We'd love to hear from you
         </h2>
-        <p className="text-sm text-espresso/70 leading-relaxed">
-          Have a question about BizFlow, enterprise pricing, custom onboarding, or need technical support? Send us a message and our team will get back to you within 2 hours.
+        <p className="text-sm text-[#64748B] leading-relaxed">
+          Have a question about BizFlow, enterprise pricing, or custom onboarding? Send us a message and our team will reply promptly.
         </p>
       </div>
 
       <div className="grid lg:grid-cols-5 gap-10 items-start">
         {/* Contact Info Cards */}
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <div className="p-5 rounded-2xl bg-white/70 border border-bronze/20 shadow-soft flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-espresso text-ivory flex items-center justify-center shrink-0">
-              <MapPin size={20} className="text-[#C9A24B]" />
+          <div className="p-5 rounded-2xl bg-white border border-[#64748B]/20 shadow-soft flex items-start gap-4 hover:border-[#3B82F6]/40 transition">
+            <div className="w-10 h-10 rounded-xl bg-[#3B82F6] text-white flex items-center justify-center shrink-0 shadow-soft">
+              <MapPin size={20} />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-charcoal">Headquarters</h4>
-              <p className="text-xs text-bronze mt-0.5 leading-relaxed">
+              <h4 className="font-bold text-sm text-[#0F172A]">Headquarters</h4>
+              <p className="text-xs text-[#64748B] mt-0.5 leading-relaxed">
                 BizFlow Tech Hub, Alkapuri<br />Vadodara, Gujarat 390007, India
               </p>
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-white/70 border border-bronze/20 shadow-soft flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-espresso text-ivory flex items-center justify-center shrink-0">
-              <Mail size={20} className="text-[#C9A24B]" />
+          <div className="p-5 rounded-2xl bg-white border border-[#64748B]/20 shadow-soft flex items-start gap-4 hover:border-[#3B82F6]/40 transition">
+            <div className="w-10 h-10 rounded-xl bg-[#3B82F6] text-white flex items-center justify-center shrink-0 shadow-soft">
+              <Mail size={20} />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-charcoal">Email Support</h4>
-              <p className="text-xs font-semibold text-espresso mt-0.5">arpitanathwani2195@gmail.com</p>
-              <p className="text-xs text-bronze">support@bizflow.in</p>
+              <h4 className="font-bold text-sm text-[#0F172A]">Email Support</h4>
+              <p className="text-xs font-bold text-[#3B82F6] mt-0.5">arpitanathwani2195@gmail.com</p>
+              <p className="text-xs text-[#64748B]">support@bizflow.in</p>
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-white/70 border border-bronze/20 shadow-soft flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-espresso text-ivory flex items-center justify-center shrink-0">
-              <Phone size={20} className="text-[#C9A24B]" />
+          <div className="p-5 rounded-2xl bg-white border border-[#64748B]/20 shadow-soft flex items-start gap-4 hover:border-[#3B82F6]/40 transition">
+            <div className="w-10 h-10 rounded-xl bg-[#3B82F6] text-white flex items-center justify-center shrink-0 shadow-soft">
+              <Phone size={20} />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-charcoal">Phone & WhatsApp</h4>
-              <p className="text-xs font-semibold text-espresso mt-0.5">+91 90993 14955</p>
-              <p className="text-xs text-bronze">+91 98765 43210</p>
+              <h4 className="font-bold text-sm text-[#0F172A]">Phone & WhatsApp</h4>
+              <p className="text-xs font-bold text-[#0F172A] mt-0.5">+91 90993 14955</p>
+              <p className="text-xs text-[#64748B]">+91 98765 43210</p>
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#1A1512] text-ivory border border-[#8C7A5B]/30 shadow-soft flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#C9A24B]/20 text-[#C9A24B] flex items-center justify-center shrink-0">
+          <div className="p-5 rounded-2xl bg-[#0F172A] text-white border border-[#64748B]/30 shadow-soft flex items-start gap-4">
+            <div className="w-10 h-10 rounded-xl bg-[#22D3EE]/20 text-[#22D3EE] flex items-center justify-center shrink-0">
               <Clock size={20} />
             </div>
             <div>
               <h4 className="font-bold text-sm text-white">Support Hours</h4>
-              <p className="text-xs text-ivory/70 mt-0.5">Mon - Sat: 9:00 AM - 7:00 PM IST</p>
-              <p className="text-[11px] text-[#C9A24B] font-semibold mt-1">● Live Support Active</p>
+              <p className="text-xs text-white/70 mt-0.5">Mon - Sat: 9:00 AM - 7:00 PM IST</p>
+              <p className="text-[11px] text-[#22D3EE] font-bold mt-1">● Live Support Active</p>
             </div>
           </div>
         </div>
 
         {/* Contact Form */}
-        <div className="lg:col-span-3 p-6 sm:p-8 rounded-2xl bg-white border border-bronze/20 shadow-card">
+        <div className="lg:col-span-3 p-6 sm:p-8 rounded-2xl bg-white border border-[#64748B]/20 shadow-card">
           {submitted ? (
             <div className="py-12 flex flex-col items-center text-center animate-fadeIn">
-              <CheckCircle2 size={48} className="text-emerald-600 mb-3" />
-              <h3 className="font-display text-xl font-bold text-charcoal mb-2">Message Sent Successfully!</h3>
-              <p className="text-xs text-bronze max-w-sm mb-6 leading-relaxed">
+              <CheckCircle2 size={48} className="text-[#22D3EE] mb-3" />
+              <h3 className="font-display text-xl font-bold text-[#0F172A] mb-2">Message Sent Successfully!</h3>
+              <p className="text-xs text-[#64748B] max-w-sm mb-6 leading-relaxed">
                 Thank you for contacting BizFlow. One of our team specialists will review your message and reply via email shortly.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="text-xs font-bold text-espresso border border-bronze/30 px-4 py-2 rounded-lg hover:bg-espresso/5 transition"
+                className="text-xs font-bold text-[#0F172A] border border-[#64748B]/30 px-4 py-2 rounded-lg hover:bg-[#3B82F6]/10 transition cursor-pointer"
               >
                 Send Another Message
               </button>
@@ -456,35 +729,35 @@ function ContactSection() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-xs">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="font-semibold text-charcoal block mb-1">Full Name *</label>
+                  <label className="font-bold text-[#0F172A] block mb-1">Full Name *</label>
                   <input
                     required
                     type="text"
                     placeholder="Arpita Shah"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full bg-ivory/60 border border-bronze/30 rounded-xl p-3 text-xs text-charcoal outline-none focus:border-[#C9A24B]"
+                    className="w-full bg-[#F8FAFC] border border-[#64748B]/30 rounded-xl p-3 text-xs text-[#0F172A] outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]/30 transition"
                   />
                 </div>
                 <div>
-                  <label className="font-semibold text-charcoal block mb-1">Business Email *</label>
+                  <label className="font-bold text-[#0F172A] block mb-1">Business Email *</label>
                   <input
                     required
                     type="email"
                     placeholder="arpita@example.com"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full bg-ivory/60 border border-bronze/30 rounded-xl p-3 text-xs text-charcoal outline-none focus:border-[#C9A24B]"
+                    className="w-full bg-[#F8FAFC] border border-[#64748B]/30 rounded-xl p-3 text-xs text-[#0F172A] outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]/30 transition"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="font-semibold text-charcoal block mb-1">Inquiry Category</label>
+                <label className="font-bold text-[#0F172A] block mb-1">Inquiry Category</label>
                 <select
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
-                  className="w-full bg-ivory/60 border border-bronze/30 rounded-xl p-3 text-xs text-charcoal font-medium outline-none focus:border-[#C9A24B]"
+                  className="w-full bg-[#F8FAFC] border border-[#64748B]/30 rounded-xl p-3 text-xs text-[#0F172A] font-semibold outline-none focus:border-[#3B82F6] transition"
                 >
                   <option value="General Inquiry">General Inquiry</option>
                   <option value="Sales & Enterprise">Sales & Custom Onboarding</option>
@@ -494,20 +767,21 @@ function ContactSection() {
               </div>
 
               <div>
-                <label className="font-semibold text-charcoal block mb-1">Message *</label>
+                <label className="font-bold text-[#0F172A] block mb-1">Message *</label>
                 <textarea
                   required
                   rows={4}
                   placeholder="How can we help your business thrive?"
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full bg-ivory/60 border border-bronze/30 rounded-xl p-3 text-xs text-charcoal outline-none focus:border-[#C9A24B] resize-none"
+                  className="w-full bg-[#F8FAFC] border border-[#64748B]/30 rounded-xl p-3 text-xs text-[#0F172A] outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]/30 transition resize-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-espresso text-ivory font-bold py-3.5 rounded-xl hover:bg-charcoal transition flex items-center justify-center gap-2 shadow-soft cursor-pointer text-xs"
+                disabled={loading}
+                className="w-full bg-[#3B82F6] text-white font-bold py-3.5 rounded-xl hover:bg-[#2563EB] transition flex items-center justify-center gap-2 shadow-soft hover:shadow-blueGlow cursor-pointer text-xs active:scale-95"
               >
                 <Send size={15} /> Send Message to BizFlow
               </button>
@@ -522,12 +796,22 @@ function ContactSection() {
 function FinalCTA() {
   return (
     <section className="max-w-6xl mx-auto px-6 pb-24">
-      <div className="bg-espresso rounded-[16px] px-8 py-16 text-center">
-        <h2 className="font-display text-3xl sm:text-4xl text-ivory mb-4">Your business can run from here.</h2>
-        <p className="text-ivory/70 mb-8 max-w-md mx-auto">Set up takes under ten minutes. No credit card required.</p>
-        <Link to="/register" className="inline-flex items-center gap-2 bg-gold text-charcoal px-7 py-3.5 rounded-[8px] font-medium hover:bg-gold/90 transition">
-          Start Free <ArrowUpRight size={16} />
-        </Link>
+      <div className="bg-[#0F172A] rounded-3xl p-10 sm:p-16 text-center border border-[#64748B]/30 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#3B82F6]/15 blur-3xl pointer-events-none" />
+        <div className="relative z-10 max-w-xl mx-auto">
+          <h2 className="font-display text-3xl sm:text-5xl font-bold text-white mb-4">
+            Your business can run from here.
+          </h2>
+          <p className="text-white/70 text-sm mb-8">
+            Setup takes under 2 minutes. No credit card required.
+          </p>
+          <Link
+            to="/register"
+            className="inline-flex items-center gap-2 bg-[#3B82F6] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#2563EB] transition shadow-soft hover:shadow-blueGlow active:scale-95 text-sm"
+          >
+            Start Free Workspace Now <ArrowUpRight size={17} />
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -535,31 +819,35 @@ function FinalCTA() {
 
 function Footer() {
   return (
-    <footer className="border-t border-bronze/15">
+    <footer className="border-t border-[#64748B]/15 bg-white">
       <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col sm:flex-row justify-between gap-8">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-6 h-6 rounded-[5px] bg-espresso flex items-center justify-center font-display text-ivory text-xs">B</div>
-            <span className="font-display">BizFlow</span>
+          <div className="flex items-center gap-2.5 mb-3">
+            <div className="w-7 h-7 rounded-lg bg-[#3B82F6] flex items-center justify-center font-display text-white text-sm font-bold shadow-soft">
+              B
+            </div>
+            <span className="font-display text-lg font-bold text-[#0F172A]">BizFlow</span>
           </div>
-          <p className="text-sm text-bronze max-w-xs">Everything your business needs. In one flow.</p>
+          <p className="text-xs text-[#64748B] max-w-xs leading-relaxed">
+            Everything your small business needs to operate smoothly. All in one flow.
+          </p>
         </div>
-        <div className="flex gap-16 text-sm">
-          <div className="flex flex-col gap-2 text-esperso">
-            <span className="text-bronze text-xs mb-1">Product</span>
-            <a href="#features" className="text-espresso/70 hover:text-charcoal">Features</a>
-            <a href="#pricing" className="text-espresso/70 hover:text-charcoal">Pricing</a>
-            <Link to="/demo" className="text-espresso/70 hover:text-charcoal">Demo</Link>
+        <div className="flex gap-16 text-xs">
+          <div className="flex flex-col gap-2.5">
+            <span className="text-[#64748B] font-bold uppercase tracking-wider text-[10px]">Product</span>
+            <a href="#features" className="text-[#0F172A] hover:text-[#3B82F6] font-semibold transition">Features</a>
+            <a href="#pricing" className="text-[#0F172A] hover:text-[#3B82F6] font-semibold transition">Pricing</a>
+            <Link to="/demo" className="text-[#0F172A] hover:text-[#3B82F6] font-semibold transition">Demo Hub</Link>
           </div>
-          <div className="flex flex-col gap-2">
-            <span className="text-bronze text-xs mb-1">Company</span>
-            <a href="#contact" className="text-espresso/70 hover:text-charcoal">Contact</a>
-            <a href="#contact" className="text-espresso/70 hover:text-charcoal font-semibold text-[#C9A24B]">Get Support</a>
+          <div className="flex flex-col gap-2.5">
+            <span className="text-[#64748B] font-bold uppercase tracking-wider text-[10px]">Company</span>
+            <a href="#contact" className="text-[#0F172A] hover:text-[#3B82F6] font-semibold transition">Contact Us</a>
+            <a href="#contact" className="text-[#3B82F6] font-bold hover:underline transition">Get Support</a>
           </div>
         </div>
       </div>
-      <div className="max-w-6xl mx-auto px-6 py-6 border-t border-bronze/10 text-xs text-bronze">
-        © 2026 BizFlow. All rights reserved.
+      <div className="max-w-6xl mx-auto px-6 py-6 border-t border-[#64748B]/10 text-xs text-[#64748B] text-center sm:text-left">
+        © 2026 BizFlow SaaS Platform. All rights reserved.
       </div>
     </footer>
   );

@@ -29,15 +29,15 @@ export default function NotificationPopover({ isOpen, onClose }: { isOpen: boole
 
   const getIcon = (type: Notification["type"]) => {
     switch (type) {
-      case "booking": return <Calendar size={16} className="text-gold" />;
-      case "payment": return <CreditCard size={16} className="text-[#3E5C3A]" />;
-      case "stock": return <AlertTriangle size={16} className="text-[#8A5A2A]" />;
-      case "review": return <Star size={16} className="text-gold" />;
+      case "booking": return <Calendar size={16} className="text-[#3B82F6]" />;
+      case "payment": return <CreditCard size={16} className="text-[#22D3EE]" />;
+      case "stock": return <AlertTriangle size={16} className="text-[#64748B]" />;
+      case "review": return <Star size={16} className="text-[#3B82F6]" />;
     }
   };
 
   return (
-    <div className="absolute right-0 top-12 z-50 w-80 sm:w-96 bg-[#F4EFE6] border border-bronze/30 rounded-[14px] shadow-2xl overflow-hidden animate-fadeIn">
+    <div className="absolute right-0 top-12 z-50 w-80 sm:w-96 bg-[#F8FAFC] border border-[#64748B]/30 rounded-[14px] shadow-2xl overflow-hidden animate-fadeIn">
       <div className="flex items-center justify-between px-4 py-3 border-b border-bronze/20 bg-white/50">
         <div className="flex items-center gap-2 font-display text-sm font-semibold text-charcoal">
           <Bell size={16} className="text-gold" /> Notifications

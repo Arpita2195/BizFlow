@@ -56,7 +56,7 @@ const BusinessSchema = new Schema<IBusiness>({
   businessHours: { type: String, default: "09:00 AM - 08:00 PM" },
   currency: { type: String, default: "INR" },
   subscriptionTier: { type: String, enum: ["FREE", "STARTER", "PROFESSIONAL", "BUSINESS"], default: "PROFESSIONAL" },
-  accentColor: { type: String, default: "#C9A24B" },
+  accentColor: { type: String, default: "#3B82F6" },
   createdAt: { type: Date, default: Date.now }
 });
 

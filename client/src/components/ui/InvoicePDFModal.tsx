@@ -91,7 +91,7 @@ export default function InvoicePDFModal({
               </tr>
             </thead>
             <tbody className="divide-y divide-bronze/10">
-              {invoice.items.map((item, idx) => (
+              {invoice.items.map((item: any, idx: number) => (
                 <tr key={idx}>
                   <td className="py-3 px-3 font-medium text-charcoal">{item.description}</td>
                   <td className="py-3 px-3 text-center">{item.quantity}</td>
@@ -119,7 +119,7 @@ export default function InvoicePDFModal({
             {invoice.discount > 0 && (
               <div className="flex justify-between text-bronze">
                 <span>Discount:</span>
-                <span className="font-semibold text-[#3E5C3A]">- {formatINR(invoice.discount)}</span>
+                <span className="font-semibold text-[#0891B2]">- {formatINR(invoice.discount)}</span>
               </div>
             )}
             <div className="flex justify-between pt-2 border-t border-bronze/30 font-display text-base font-bold text-espresso">

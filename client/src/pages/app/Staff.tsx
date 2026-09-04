@@ -90,7 +90,7 @@ export default function Staff() {
               <thead>
                 <tr className="bg-bronze/10 text-charcoal font-bold text-[11px] uppercase border-b border-bronze/20">
                   <th className="p-2.5">Feature / Route</th>
-                  <th className="p-2.5 text-center text-[#C9A24B]">Owner</th>
+                  <th className="p-2.5 text-center text-gold">Owner</th>
                   <th className="p-2.5 text-center text-blue-600 dark:text-blue-400">Admin</th>
                   <th className="p-2.5 text-center text-emerald-600 dark:text-emerald-400">Manager</th>
                   <th className="p-2.5 text-center text-amber-600 dark:text-amber-400">Staff</th>
@@ -137,7 +137,7 @@ export default function Staff() {
 
                 {/* Rating & Shift Hours */}
                 <div className="flex items-center justify-between py-2 border-y border-bronze/15 mb-4 text-xs">
-                  <div className="flex items-center gap-1 text-[#C9A24B] font-bold">
+                  <div className="flex items-center gap-1 text-gold font-bold">
                     <Star size={14} fill="currentColor" strokeWidth={0} />
                     <span>{s.rating} Customer Rating</span>
                   </div>
@@ -190,7 +190,7 @@ export default function Staff() {
               <select
                 value={form.rbacRole}
                 onChange={e => setForm({ ...form, rbacRole: e.target.value as any })}
-                className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2 text-xs font-semibold focus:outline-none focus:border-[#C9A24B]"
+                className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2 text-xs font-semibold focus:outline-none focus:border-gold"
               >
                 <option value="STAFF">STAFF (Operations & Schedule only)</option>
                 <option value="MANAGER">MANAGER (Operations + Invoices)</option>

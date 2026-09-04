@@ -76,10 +76,10 @@ export default function Onboarding() {
   const back = () => setStep((s) => Math.max(0, s - 1));
 
   return (
-    <div className="min-h-screen bg-[#F4EFE6] text-[#1A1512] flex flex-col">
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex flex-col">
       <header className="px-6 lg:px-12 h-16 flex items-center justify-between border-b border-bronze/15 bg-white/40">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-[7px] bg-[#C9A24B] flex items-center justify-center font-display text-[#1A1512] font-bold text-base">B</div>
+          <div className="w-8 h-8 rounded-[7px] bg-[#3B82F6] flex items-center justify-center font-display text-white font-bold text-base">B</div>
           <span className="font-display text-lg font-bold text-charcoal">BizFlow Onboarding</span>
         </div>
         <span className="text-xs font-semibold text-bronze">Guided 9-Step Business Setup</span>
@@ -190,18 +190,18 @@ function StepBody({
           
           <div
             onClick={() => fileInputRef.current?.click()}
-            className="w-full border-2 border-dashed border-bronze/30 hover:border-[#C9A24B] rounded-2xl h-44 flex flex-col items-center justify-center gap-2 text-bronze cursor-pointer bg-white/40 transition p-4 text-center group"
+            className="w-full border-2 border-dashed border-bronze/30 hover:border-[#3B82F6] rounded-2xl h-44 flex flex-col items-center justify-center gap-2 text-bronze cursor-pointer bg-white/40 transition p-4 text-center group"
           >
             {logoUrl ? (
               <div className="flex flex-col items-center gap-2">
                 <img src={logoUrl} alt="Uploaded logo preview" className="w-20 h-20 object-cover rounded-xl border border-bronze/30 shadow-md" />
-                <span className="text-xs font-bold text-[#3E5C3A] flex items-center gap-1">
+                <span className="text-xs font-bold text-[#10B981] flex items-center gap-1">
                   <CheckCircle size={14} /> Logo Uploaded Successfully (Click to Change)
                 </span>
               </div>
             ) : (
               <>
-                <div className="w-12 h-12 rounded-xl bg-[#C9A24B]/20 flex items-center justify-center text-[#3D2B1F] group-hover:bg-[#C9A24B]/30 transition">
+                <div className="w-12 h-12 rounded-xl bg-[#3B82F6]/20 flex items-center justify-center text-[#0F172A] group-hover:bg-[#3B82F6]/30 transition">
                   <Upload size={22} />
                 </div>
                 <span className="text-xs font-bold text-charcoal">Click to select business logo image</span>

@@ -4,19 +4,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        espresso: "#3D2B1F",
-        gold: "#C9A24B",
-        charcoal: "#1A1512",
-        bronze: "#8C7A5B",
-        ivory: "#F4EFE6",
+        deepNavy: "#0F172A",
+        charcoal: "#0F172A",
+        espresso: "#0F172A",
+        electricBlue: "#3B82F6",
+        gold: "#3B82F6",
+        skyBlue: "#3B82F6",
+        slateGrey: "#64748B",
+        bronze: "#64748B",
+        cyanAccent: "#22D3EE",
+        cyan: "#22D3EE",
+        teal: "#22D3EE",
+        turquoise: "#22D3EE",
+        nearWhite: "#F8FAFC",
+        ivory: "#F8FAFC",
       },
       fontFamily: {
-        display: ["'Fraunces'", "serif"],
+        display: ["'Inter'", "sans-serif"],
         sans: ["'Inter'", "sans-serif"],
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(26,21,18,0.06), 0 2px 8px rgba(26,21,18,0.05)",
-        card: "0 1px 3px rgba(26,21,18,0.08)",
+        soft: "0 1px 2px rgba(15,23,42,0.06), 0 2px 8px rgba(15,23,42,0.05)",
+        card: "0 1px 3px rgba(15,23,42,0.08)",
+        cyanGlow: "0 0 15px rgba(34,211,238,0.3)",
+        blueGlow: "0 0 15px rgba(59,130,246,0.3)",
       },
       borderRadius: {
         DEFAULT: "10px",

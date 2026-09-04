@@ -95,7 +95,7 @@ export default function Quotations() {
                         Convert to Invoice
                       </Button>
                     ) : (
-                      <span className="text-xs text-[#3E5C3A] font-semibold flex items-center justify-end gap-1">
+                      <span className="text-xs text-[#0891B2] font-semibold flex items-center justify-end gap-1">
                         <CheckCircle size={14} /> Converted to Invoice
                       </span>
                     )}

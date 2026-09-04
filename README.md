@@ -65,17 +65,17 @@ BizFlow connects business operations and customer interactions into a unified pl
 
 ## 🎨 Brand Design System
 
-BizFlow utilizes a curated **Dark Luxury & Warm Warmth** color palette:
+BizFlow utilizes a curated **Clean SaaS** color palette:
 
 | Token Name | Hex Code | Purpose & Usage |
 | :--- | :--- | :--- |
-| **Warm Ivory** | `#F4EFE6` | Main App Background, Soft Card Fill |
-| **Charcoal Black** | `#1A1512` | Primary Text, Dark Cards, Sidebar Shell |
-| **Espresso Brown** | `#3D2B1F` | Headers, Main Action Buttons |
-| **Antique Gold** | `#C9A24B` | Primary Accent, Badges, Highlights |
-| **Bronze** | `#8C7A5B` | Subtitles, Borders, Muted Text |
+| **Deep Navy** | `#0F172A` | Sidebar Shell, Primary Headers, Main Dark Backgrounds |
+| **Electric Blue** | `#3B82F6` | Primary Action Buttons, Active Highlights, Key Icons |
+| **Slate Grey** | `#64748B` | Subtitles, Muted Text, Borders, Chart Gridlines |
+| **Cyan Accent** | `#22D3EE` | Active Sidebar Highlight, Pulsing Badges, Accent Lines |
+| **Near White** | `#F8FAFC` | App Canvas Background, Clean Card Fill, Modal Shells |
 
-*Typography*: **Fraunces** (Serif Display Headings) & **Inter** (Clean Body Copy).
+*Typography*: **Inter** (Clean Modern Sans-Serif Body & Headings).
 
 ---
 

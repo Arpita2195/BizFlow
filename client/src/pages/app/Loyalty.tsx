@@ -41,7 +41,7 @@ export default function Loyalty() {
         </Card>
         <Card className="p-5 flex flex-col gap-1">
           <span className="text-xs text-bronze font-semibold uppercase">Points Redeemed</span>
-          <p className="font-display text-2xl font-bold text-[#C9A24B]">{totalPointsRedeemed.toLocaleString()}</p>
+          <p className="font-display text-2xl font-bold text-[#3B82F6]">{totalPointsRedeemed.toLocaleString()}</p>
         </Card>
         <Card className="p-5 flex flex-col gap-1">
           <span className="text-xs text-bronze font-semibold uppercase">Enrolled Members</span>
@@ -52,25 +52,25 @@ export default function Loyalty() {
       {/* Tiered Rewards Card */}
       <Card className="p-5 flex flex-col gap-4">
         <div className="flex items-center gap-2">
-          <Award size={20} className="text-[#C9A24B]" />
+          <Award size={20} className="text-[#3B82F6]" />
           <h2 className="font-display text-lg font-bold text-charcoal">Active Loyalty Tiers</h2>
         </div>
         <div className="grid sm:grid-cols-3 gap-4">
-          <div className="border border-[#C9A24B]/30 bg-gold/10 rounded-[12px] p-4 flex flex-col justify-between">
+          <div className="border border-[#3B82F6]/30 bg-gold/10 rounded-[12px] p-4 flex flex-col justify-between">
             <div>
               <Badge tone="gold">Silver Tier</Badge>
               <h3 className="font-bold text-charcoal text-base mt-2">500 Points</h3>
               <p className="text-xs text-bronze">→ ₹100 Flat Discount Voucher</p>
             </div>
           </div>
-          <div className="border border-[#C9A24B]/30 bg-gold/10 rounded-[12px] p-4 flex flex-col justify-between">
+          <div className="border border-[#3B82F6]/30 bg-gold/10 rounded-[12px] p-4 flex flex-col justify-between">
             <div>
               <Badge tone="gold">Gold Tier</Badge>
               <h3 className="font-bold text-charcoal text-base mt-2">1,000 Points</h3>
               <p className="text-xs text-bronze">→ Free Signature Service Upgrade</p>
             </div>
           </div>
-          <div className="border border-[#C9A24B]/30 bg-gold/10 rounded-[12px] p-4 flex flex-col justify-between">
+          <div className="border border-[#3B82F6]/30 bg-gold/10 rounded-[12px] p-4 flex flex-col justify-between">
             <div>
               <Badge tone="gold">Platinum VIP</Badge>
               <h3 className="font-bold text-charcoal text-base mt-2">2,500 Points</h3>

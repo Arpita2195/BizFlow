@@ -25,17 +25,17 @@ export default function Assistant() {
       {/* Main Coming Soon Banner */}
       <Card className="min-h-[60vh] flex flex-col items-center justify-center text-center p-8 sm:p-12 border-dashed border-bronze/30 relative overflow-hidden">
         {/* Decorative Background Glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#C9A24B]/10 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#3B82F6]/10 blur-3xl rounded-full pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center max-w-lg">
           {/* Animated Icon */}
-          <div className="w-20 h-20 rounded-3xl bg-[#C9A24B]/15 border border-[#C9A24B]/30 flex items-center justify-center text-[#C9A24B] mb-6 shadow-xl relative">
+          <div className="w-20 h-20 rounded-3xl bg-[#3B82F6]/15 border border-[#3B82F6]/30 flex items-center justify-center text-[#3B82F6] mb-6 shadow-xl relative">
             <Sparkles size={36} className="animate-pulse" />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#C9A24B] animate-ping" />
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#3B82F6] animate-ping" />
           </div>
 
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#C9A24B]/20 border border-[#C9A24B]/40 text-[#C9A24B] text-[11px] font-bold uppercase tracking-wider mb-4 shadow-xs">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#3B82F6]/20 border border-[#3B82F6]/40 text-[#3B82F6] text-[11px] font-bold uppercase tracking-wider mb-4 shadow-xs">
             <Clock size={12} />
             <span>Coming Soon in v2.0</span>
           </div>
@@ -68,17 +68,17 @@ export default function Assistant() {
           {/* Upcoming Capabilities Preview */}
           <div className="w-full grid grid-cols-3 gap-3 text-left pt-6 border-t border-bronze/15 text-xs text-bronze">
             <div className="flex flex-col gap-1 p-3 rounded-xl bg-white/40 dark:bg-white/5 border border-bronze/10">
-              <Zap size={16} className="text-[#C9A24B] mb-1" />
+              <Zap size={16} className="text-[#3B82F6] mb-1" />
               <span className="font-bold text-charcoal">Revenue Analytics</span>
               <span className="text-[10px] leading-tight text-bronze">Instant financial queries & forecasting</span>
             </div>
             <div className="flex flex-col gap-1 p-3 rounded-xl bg-white/40 dark:bg-white/5 border border-bronze/10">
-              <Bot size={16} className="text-[#C9A24B] mb-1" />
+              <Bot size={16} className="text-[#3B82F6] mb-1" />
               <span className="font-bold text-charcoal">Auto Scheduling</span>
               <span className="text-[10px] leading-tight text-bronze">Smart slot optimization & reminders</span>
             </div>
             <div className="flex flex-col gap-1 p-3 rounded-xl bg-white/40 dark:bg-white/5 border border-bronze/10">
-              <ShieldCheck size={16} className="text-[#C9A24B] mb-1" />
+              <ShieldCheck size={16} className="text-[#3B82F6] mb-1" />
               <span className="font-bold text-charcoal">Inventory Alerts</span>
               <span className="text-[10px] leading-tight text-bronze">Automated stock reorder triggers</span>
             </div>

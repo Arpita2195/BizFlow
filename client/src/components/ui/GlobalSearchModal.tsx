@@ -28,7 +28,7 @@ export default function GlobalSearchModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-charcoal/60 backdrop-blur-xs animate-fadeIn">
-      <div className="w-full max-w-2xl bg-[#F4EFE6] border border-bronze/30 rounded-[14px] shadow-2xl overflow-hidden flex flex-col">
+      <div className="w-full max-w-2xl bg-[#F8FAFC] border border-[#64748B]/30 rounded-[14px] shadow-2xl overflow-hidden flex flex-col">
         {/* Search Header Input */}
         <div className="flex items-center px-4 py-3.5 border-b border-bronze/20 bg-white/60">
           <Search size={20} className="text-bronze mr-3" />

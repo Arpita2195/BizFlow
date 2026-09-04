@@ -157,7 +157,7 @@ export default function Invoices() {
                     <div className="flex items-center justify-end gap-2 text-xs">
                       <button
                         onClick={() => setDispatchModal(i)}
-                        className="px-2.5 py-1 bg-[#C9A24B]/20 text-[#3D2B1F] rounded-lg font-bold hover:bg-[#C9A24B]/30 transition flex items-center gap-1 cursor-pointer"
+                        className="px-2.5 py-1 bg-[#3B82F6]/20 text-[#0F172A] rounded-lg font-bold hover:bg-[#3B82F6]/30 transition flex items-center gap-1 cursor-pointer"
                         title="Send bill via Email or WhatsApp"
                       >
                         <Send size={13} /> Send Bill
@@ -196,7 +196,7 @@ export default function Invoices() {
                   <Badge tone={tone[i.status]}>{i.status}</Badge>
                   <button
                     onClick={(e) => { e.stopPropagation(); setDispatchModal(i); }}
-                    className="px-2 py-1 bg-[#C9A24B]/20 text-[#3D2B1F] text-[10px] font-bold rounded"
+                    className="px-2 py-1 bg-[#3B82F6]/20 text-[#0F172A] text-[10px] font-bold rounded"
                   >
                     Send Bill
                   </button>
@@ -224,7 +224,7 @@ export default function Invoices() {
                 className="p-4 rounded-xl border border-bronze/30 bg-white/50 hover:bg-gold/10 text-left flex flex-col gap-1 transition cursor-pointer"
               >
                 <div className="flex items-center gap-2 text-charcoal font-bold text-sm">
-                  <Mail size={18} className="text-[#C9A24B]" /> Email Dispatch
+                  <Mail size={18} className="text-[#3B82F6]" /> Email Dispatch
                 </div>
                 <span className="text-[11px] text-bronze">Send PDF receipt directly to client's email address</span>
               </button>

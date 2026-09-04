@@ -107,7 +107,7 @@ export default function Customers() {
     updateCustomer(target.id, updatedFields);
 
     if (selectedCustomer && selectedCustomer.id === target.id) {
-      setSelectedCustomer(prev => prev ? { ...prev, ...updatedFields } : null);
+      setSelectedCustomer((prev: any) => prev ? { ...prev, ...updatedFields } : null);
     }
 
     setIsEditOpen(false);
@@ -211,7 +211,7 @@ export default function Customers() {
                       <div>
                         <p className="text-charcoal font-semibold text-sm">{c.name}</p>
                         <div className="flex gap-1 mt-0.5">
-                          {c.tags.map(t => <Badge key={t} tone={t === "VIP" ? "gold" : "neutral"}>{t}</Badge>)}
+                          {c.tags.map((t: string) => <Badge key={t} tone={t === "VIP" ? "gold" : "neutral"}>{t}</Badge>)}
                         </div>
                       </div>
                     </div>
@@ -228,7 +228,7 @@ export default function Customers() {
                       <button onClick={() => openEdit(c)} className="p-1.5 text-bronze hover:text-espresso rounded-md hover:bg-white/60">
                         <Edit2 size={15} />
                       </button>
-                      <button onClick={() => setDeleteTargetId(c.id)} className="p-1.5 text-[#7A2E2E] hover:text-red-700 rounded-md hover:bg-white/60">
+                      <button onClick={() => setDeleteTargetId(c.id)} className="p-1.5 text-[#0F172A] hover:text-[#3B82F6] rounded-md hover:bg-white/60">
                         <Trash2 size={15} />
                       </button>
                     </div>
@@ -318,7 +318,7 @@ export default function Customers() {
             <select
               value={form.tag}
               onChange={e => setForm({ ...form, tag: e.target.value })}
-              className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2.5 text-xs font-semibold focus:outline-none focus:border-[#C9A24B]"
+              className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2.5 text-xs font-semibold focus:outline-none focus:border-[#3B82F6]"
             >
               <option value="Regular">Regular Customer</option>
               <option value="VIP">VIP Customer</option>
@@ -473,7 +473,7 @@ export default function Customers() {
               <select
                 value={campaignForm.audience}
                 onChange={e => setCampaignForm({ ...campaignForm, audience: e.target.value })}
-                className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2.5 text-xs font-semibold focus:outline-none focus:border-[#C9A24B]"
+                className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2.5 text-xs font-semibold focus:outline-none focus:border-[#3B82F6]"
               >
                 <option value="All Active Customers">All Active Customers ({customers.length})</option>
                 <option value="VIP Customers">VIP Customers Only</option>
@@ -492,7 +492,7 @@ export default function Customers() {
             <select
               value={campaignForm.channel}
               onChange={e => setCampaignForm({ ...campaignForm, channel: e.target.value })}
-              className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2.5 text-xs font-semibold focus:outline-none focus:border-[#C9A24B]"
+              className="w-full bg-white/70 dark:bg-white/10 border border-bronze/30 rounded-lg p-2.5 text-xs font-semibold focus:outline-none focus:border-[#3B82F6]"
             >
               <option value="Email & WhatsApp">Email & WhatsApp Dispatch</option>
               <option value="Email Only">Email Blast Only</option>

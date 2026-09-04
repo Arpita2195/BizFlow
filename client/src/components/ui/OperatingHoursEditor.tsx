@@ -160,12 +160,12 @@ export default function OperatingHoursEditor({ initialHoursString, onChange }: O
                 type="button"
                 onClick={() => toggleDay(idx)}
                 className={`w-9 h-5 rounded-full transition-colors relative flex items-center px-0.5 ${
-                  item.isOpen ? "bg-[#3D2B1F]" : "bg-gray-300"
+                  item.isOpen ? "bg-[#0F172A]" : "bg-gray-300"
                 }`}
               >
                 <div
                   className={`w-4 h-4 rounded-full bg-white transition-transform ${
-                    item.isOpen ? "translate-x-4 bg-[#C9A24B]" : "translate-x-0"
+                    item.isOpen ? "translate-x-4 bg-[#3B82F6]" : "translate-x-0"
                   }`}
                 />
               </button>

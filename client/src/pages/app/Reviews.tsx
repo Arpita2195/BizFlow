@@ -28,7 +28,7 @@ export default function Reviews() {
             <p className="text-xs text-bronze font-semibold uppercase tracking-wider mb-1">Average Star Rating</p>
             <div className="flex items-center gap-3 mb-2">
               <p className="font-display text-4xl font-bold text-charcoal">{avg}</p>
-              <div className="flex text-[#C9A24B]">
+              <div className="flex text-[#3B82F6]">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} size={18} fill="currentColor" strokeWidth={0} />
                 ))}
@@ -44,7 +44,7 @@ export default function Reviews() {
             <div key={r.stars} className="flex items-center gap-3">
               <span className="text-xs font-semibold text-bronze w-10">{r.stars} ★</span>
               <div className="flex-1 h-2.5 bg-bronze/10 rounded-full overflow-hidden">
-                <div className="h-full bg-[#C9A24B]" style={{ width: `${reviews.length > 0 ? r.pct : 0}%` }} />
+                <div className="h-full bg-[#3B82F6]" style={{ width: `${reviews.length > 0 ? r.pct : 0}%` }} />
               </div>
               <span className="text-xs font-bold text-charcoal w-10 text-right">{reviews.length > 0 ? r.pct : 0}%</span>
             </div>
@@ -65,7 +65,7 @@ export default function Reviews() {
                     <p className="text-xs text-bronze">{r.service} • {r.date}</p>
                   </div>
                 </div>
-                <div className="flex text-[#C9A24B] shrink-0">
+                <div className="flex text-[#3B82F6] shrink-0">
                   {Array.from({ length: r.rating }).map((_, i) => (
                     <Star key={i} size={15} fill="currentColor" strokeWidth={0} />
                   ))}

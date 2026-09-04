@@ -175,7 +175,7 @@ export default function Settings() {
               </Labeled>
               <Labeled label="Primary Brand Accent Color">
                 <div className="flex gap-3 items-center">
-                  {["#C9A24B", "#8C7A5B", "#3D2B1F"].map((c) => (
+                  {["#3B82F6", "#22D3EE", "#0F172A"].map((c) => (
                     <button key={c} className="w-9 h-9 rounded-full border-2 border-white shadow-soft" style={{ background: c }} />
                   ))}
                 </div>

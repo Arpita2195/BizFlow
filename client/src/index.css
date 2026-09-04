@@ -6,11 +6,11 @@
 
 * { -webkit-font-smoothing: antialiased; }
 html { scroll-behavior: smooth; }
-body { background: #F4EFE6; color: #1A1512; font-family: 'Inter', sans-serif; }
-:focus-visible { outline: 2px solid #C9A24B; outline-offset: 2px; }
-::selection { background: #C9A24B; color: #1A1512; }
+body { background: #F8FAFC; color: #0F172A; font-family: 'Inter', sans-serif; }
+:focus-visible { outline: 2px solid #3B82F6; outline-offset: 2px; }
+::selection { background: #3B82F6; color: #FFFFFF; }
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #8C7A5B55; border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: #8C7A5B99; }
+::-webkit-scrollbar-thumb { background: #64748B55; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #64748B99; }
 .font-display { font-family: 'Fraunces', serif; }

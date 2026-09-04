@@ -83,9 +83,9 @@ export default function AppLayout() {
   };
 
   return (
-    <div className={`min-h-screen flex ${isDarkMode ? "bg-[#14100D] text-[#F4EFE6]" : "bg-[#F4EFE6] text-[#1A1512]"}`}>
+    <div className={`min-h-screen flex ${isDarkMode ? "bg-[#0B1120] text-[#F8FAFC]" : "bg-[#F8FAFC] text-[#0F172A]"}`}>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 shrink-0 bg-[#1A1512] text-[#F4EFE6] h-screen sticky top-0 border-r border-[#8C7A5B]/20">
+      <aside className="hidden lg:flex flex-col w-64 shrink-0 bg-[#0F172A] text-[#F8FAFC] h-screen sticky top-0 border-r border-[#64748B]/20">
         <SidebarContent
           activeBusiness={activeBusiness}
           userRole={userRole}
@@ -100,9 +100,9 @@ export default function AppLayout() {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setMobileOpen(false)} />
-          <aside className="absolute left-0 top-0 h-full w-72 bg-[#1A1512] text-[#F4EFE6] flex flex-col animate-fadeIn border-r border-[#8C7A5B]/20">
+          <aside className="absolute left-0 top-0 h-full w-72 bg-[#0F172A] text-[#F8FAFC] flex flex-col animate-fadeIn border-r border-[#64748B]/20">
             <div className="flex justify-end p-3">
-              <button onClick={() => setMobileOpen(false)} className="p-2 text-[#8C7A5B] hover:text-white">
+              <button onClick={() => setMobileOpen(false)} className="p-2 text-[#64748B] hover:text-white">
                 <X size={20} />
               </button>
             </div>
@@ -122,10 +122,10 @@ export default function AppLayout() {
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Top Header Navigation */}
         <header className={`sticky top-0 z-30 border-b backdrop-blur px-4 lg:px-8 h-16 flex items-center justify-between gap-4 transition ${
-          isDarkMode ? "bg-[#1A1512]/90 border-[#8C7A5B]/20" : "bg-[#F4EFE6]/90 border-[#8C7A5B]/15"
+          isDarkMode ? "bg-[#0F172A]/90 border-[#64748B]/20" : "bg-[#F8FAFC]/90 border-[#64748B]/15"
         }`}>
           <div className="flex items-center gap-3 min-w-0">
-            <button className="lg:hidden p-2 -ml-2 text-[#3D2B1F]" onClick={() => setMobileOpen(true)}>
+            <button className="lg:hidden p-2 -ml-2 text-[#0F172A]" onClick={() => setMobileOpen(true)}>
               <Menu size={22} />
             </button>
 
@@ -133,18 +133,18 @@ export default function AppLayout() {
             <button
               onClick={() => setIsSearchOpen(true)}
               className={`hidden sm:flex items-center gap-2 px-3 py-2 rounded-[8px] border text-sm transition max-w-xs w-72 ${
-                isDarkMode ? "bg-[#3D2B1F]/40 border-[#8C7A5B]/30 text-[#8C7A5B]" : "bg-white/60 border-[#8C7A5B]/20 text-[#8C7A5B]"
+                isDarkMode ? "bg-[#0F172A]/40 border-[#64748B]/30 text-[#64748B]" : "bg-white/60 border-[#64748B]/20 text-[#64748B]"
               }`}
             >
               <Search size={15} />
               <span className="truncate">Search records...</span>
-              <kbd className="ml-auto text-[10px] px-1.5 py-0.5 rounded border border-[#8C7A5B]/30">⌘K</kbd>
+              <kbd className="ml-auto text-[10px] px-1.5 py-0.5 rounded border border-[#64748B]/30">⌘K</kbd>
             </button>
 
             {/* Business Public Storefront Shortcut */}
             <Link
               to={`/business/${activeBusiness.slug}`}
-              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#C9A24B]/40 text-xs font-semibold text-[#C9A24B] hover:bg-[#C9A24B]/10 transition cursor-pointer"
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#3B82F6]/40 text-xs font-semibold text-[#3B82F6] hover:bg-[#3B82F6]/10 transition cursor-pointer"
             >
               <ExternalLink size={13} /> View Storefront
             </Link>
@@ -155,10 +155,10 @@ export default function AppLayout() {
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-full hover:bg-espresso/5 text-espresso transition cursor-pointer"
+              className="p-2 rounded-full hover:bg-[#0F172A]/5 text-[#0F172A] transition cursor-pointer"
               title="Toggle theme mode"
             >
-              {isDarkMode ? <Sun size={19} className="text-[#C9A24B]" /> : <Moon size={19} className="text-[#3D2B1F]" />}
+              {isDarkMode ? <Sun size={19} className="text-[#3B82F6]" /> : <Moon size={19} className="text-[#0F172A]" />}
             </button>
 
             {/* Notification Bell */}
@@ -168,7 +168,7 @@ export default function AppLayout() {
                 className="relative p-2 rounded-full hover:bg-espresso/5 text-espresso transition cursor-pointer"
               >
                 <Bell size={19} />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#C9A24B]" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#3B82F6]" />
               </button>
               <NotificationPopover isOpen={notifOpen} onClose={() => setNotifOpen(false)} />
             </div>
@@ -180,40 +180,40 @@ export default function AppLayout() {
                 className="flex items-center gap-2 pl-2 pr-1 py-1 rounded-full hover:bg-espresso/5 transition cursor-pointer"
               >
                 <Avatar name={user.name} size={32} />
-                <ChevronDown size={14} className="text-[#8C7A5B] hidden sm:block" />
+                <ChevronDown size={14} className="text-[#64748B] hidden sm:block" />
               </button>
 
               {profileOpen && (
-                <div className="absolute right-0 top-12 z-50 w-64 bg-[#F4EFE6] border border-[#8C7A5B]/30 rounded-[12px] shadow-2xl p-2.5 text-xs flex flex-col gap-1.5 animate-fadeIn">
-                  <div className="p-2 border-b border-[#8C7A5B]/20">
-                    <p className="font-bold text-[#1A1512] text-sm">{user.name}</p>
-                    <p className="text-[#8C7A5B]">{user.email}</p>
+                <div className="absolute right-0 top-12 z-50 w-64 bg-[#F8FAFC] border border-[#64748B]/30 rounded-[12px] shadow-2xl p-2.5 text-xs flex flex-col gap-1.5 animate-fadeIn">
+                  <div className="p-2 border-b border-[#64748B]/20">
+                    <p className="font-bold text-[#0F172A] text-sm">{user.name}</p>
+                    <p className="text-[#64748B]">{user.email}</p>
                     
-                    <div className="mt-2 pt-2 border-t border-[#8C7A5B]/15">
+                    <div className="mt-2 pt-2 border-t border-[#64748B]/15">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] text-[#8C7A5B] font-bold uppercase tracking-wider">Active Role:</span>
+                        <span className="text-[10px] text-[#64748B] font-bold uppercase tracking-wider">Active Role:</span>
                         <button
                           onClick={() => setRoleMenuOpen(!roleMenuOpen)}
-                          className="text-[10px] text-[#C9A24B] font-bold underline cursor-pointer hover:text-[#3D2B1F]"
+                          className="text-[10px] text-[#3B82F6] font-bold underline cursor-pointer hover:text-[#0F172A]"
                         >
                           {roleMenuOpen ? "Close Switcher" : "Test Role →"}
                         </button>
                       </div>
 
-                      <span className="inline-block px-2 py-0.5 rounded bg-[#C9A24B]/20 text-[#1A1512] font-bold text-[10px] uppercase">
+                      <span className="inline-block px-2 py-0.5 rounded bg-[#3B82F6]/20 text-[#0F172A] font-bold text-[10px] uppercase">
                         {userRole}
                       </span>
 
                       {roleMenuOpen && (
-                        <div className="mt-2 p-1.5 bg-[#1A1512] rounded-lg text-white flex flex-col gap-1 border border-[#C9A24B]/30 animate-fadeIn">
-                          <span className="text-[9px] text-[#C9A24B] font-bold uppercase tracking-wider px-1">Switch RBAC Role (Testing):</span>
+                        <div className="mt-2 p-1.5 bg-[#0F172A] rounded-lg text-white flex flex-col gap-1 border border-[#3B82F6]/30 animate-fadeIn">
+                          <span className="text-[9px] text-[#3B82F6] font-bold uppercase tracking-wider px-1">Switch RBAC Role (Testing):</span>
                           {availableRoles.map((item) => (
                             <button
                               key={item.role}
                               onClick={() => { handleRoleChange(item.role); setProfileOpen(false); }}
                               className={`w-full text-left px-2 py-1 rounded text-[11px] font-semibold transition cursor-pointer ${
                                 userRole === item.role
-                                  ? "bg-[#C9A24B] text-[#1A1512]"
+                                  ? "bg-[#3B82F6] text-white"
                                   : "hover:bg-white/15 text-white/80"
                               }`}
                             >
@@ -234,7 +234,7 @@ export default function AppLayout() {
                   )}
                   <button
                     onClick={() => { setProfileOpen(false); handleSignOut(); }}
-                    className="w-full text-left px-3 py-2 rounded-md hover:bg-white/60 text-[#7A2E2E] font-medium cursor-pointer"
+                    className="w-full text-left px-3 py-2 rounded-md hover:bg-white/60 text-[#0F172A] font-medium cursor-pointer"
                   >
                     Sign out
                   </button>
@@ -277,20 +277,20 @@ function SidebarContent({
       {/* Brand Header & Active Business Workspace Card */}
       <div className="px-5 pt-6 pb-4 border-b border-white/10 flex flex-col gap-3">
         <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate("/")}>
-          <div className="w-8 h-8 rounded-[7px] bg-[#C9A24B] flex items-center justify-center font-display text-[#1A1512] font-bold text-base shadow-soft">
+          <div className="w-8 h-8 rounded-[7px] bg-[#3B82F6] flex items-center justify-center font-display text-white font-bold text-base shadow-soft">
             B
           </div>
           <div>
             <div className="font-display text-[16px] font-bold leading-none tracking-tight text-white">BIZFLOW</div>
-            <div className="text-[10px] text-[#C9A24B] font-semibold uppercase tracking-wider mt-0.5">SaaS Platform</div>
+            <div className="text-[10px] text-[#3B82F6] font-semibold uppercase tracking-wider mt-0.5">SaaS Platform</div>
           </div>
         </div>
 
         {/* Clean Active Business Workspace Display Card */}
         <div className="mt-1 bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col gap-1.5 shadow-sm">
-          <div className="flex items-center justify-between text-[10px] text-[#8C7A5B] font-semibold uppercase tracking-wider">
+          <div className="flex items-center justify-between text-[10px] text-[#64748B] font-semibold uppercase tracking-wider">
             <span>Workspace</span>
-            <span className="flex items-center gap-1 text-[#3E5C3A] font-bold text-[9px] bg-[#3E5C3A]/20 px-1.5 py-0.5 rounded">
+            <span className="flex items-center gap-1 text-[#10B981] font-bold text-[9px] bg-[#10B981]/20 px-1.5 py-0.5 rounded">
               ● Live
             </span>
           </div>
@@ -299,20 +299,20 @@ function SidebarContent({
             {activeBusiness.logoUrl ? (
               <img src={activeBusiness.logoUrl} alt={activeBusiness.name} className="w-8 h-8 rounded-lg object-cover border border-white/20 shrink-0" />
             ) : (
-              <div className="w-8 h-8 rounded-lg bg-[#C9A24B] text-[#1A1512] flex items-center justify-center font-display font-bold text-sm shrink-0 shadow-sm">
+              <div className="w-8 h-8 rounded-lg bg-[#3B82F6] text-white flex items-center justify-center font-display font-bold text-sm shrink-0 shadow-sm">
                 {activeBusiness.logoInitial || (activeBusiness.name || "B").charAt(0).toUpperCase()}
               </div>
             )}
             <div className="min-w-0 flex-1">
               <p className="text-xs font-bold text-white truncate">{activeBusiness.name}</p>
-              <p className="text-[10px] text-[#8C7A5B] font-semibold uppercase tracking-wider truncate">
+              <p className="text-[10px] text-[#64748B] font-semibold uppercase tracking-wider truncate">
                 {activeBusiness.type} • {userRole || "Owner"}
               </p>
             </div>
           </div>
 
           {(userRole === "OWNER" || userRole === "ADMIN") && (
-            <div className="mt-1 pt-1.5 border-t border-white/10 flex items-center justify-between text-[10px] text-[#C9A24B]">
+            <div className="mt-1 pt-1.5 border-t border-white/10 flex items-center justify-between text-[10px] text-[#3B82F6]">
               <span className="font-semibold text-white/70">Workspace Settings</span>
               <button
                 onClick={() => { onNavigate(); navigate("/app/settings"); }}
@@ -336,7 +336,7 @@ function SidebarContent({
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-[8px] text-xs font-medium transition-all ${
                 isActive
-                  ? "bg-[#C9A24B]/20 text-[#C9A24B] border-l-2 border-[#C9A24B] font-semibold"
+                  ? "bg-[#3B82F6]/20 text-[#22D3EE] border-l-2 border-[#22D3EE] font-semibold"
                   : "text-white/70 hover:bg-white/5 hover:text-white"
               }`
             }
@@ -351,7 +351,7 @@ function SidebarContent({
       <div className="p-3 border-t border-white/10 flex flex-col gap-1">
         <button
           onClick={() => navigate("/demo")}
-          className="flex items-center gap-2 px-3 py-2 rounded-[8px] text-xs text-[#C9A24B] hover:bg-[#C9A24B]/10 font-semibold w-full transition"
+          className="flex items-center gap-2 px-3 py-2 rounded-[8px] text-xs text-[#3B82F6] hover:bg-[#3B82F6]/10 font-semibold w-full transition"
         >
           <Sparkles size={14} /> Freelance Demo Hub
         </button>

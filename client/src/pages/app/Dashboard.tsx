@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { useApp } from "../../context/AppContext";
 import { Card, StatCard, Badge, Button, Modal, Input, Select } from "../../components/ui/Primitives";
-import { revenueTrend, topServicesChart, formatINR } from "../../data/demoData";
+import { revenueTrend, formatINR, getDemoDataForBusiness } from "../../data/demoData";
 import {
   AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid,
   BarChart, Bar
@@ -131,6 +131,8 @@ export default function Dashboard() {
   };
 
   const sessionType = localStorage.getItem("bizflow_session_type");
+  const currentDemoData = getDemoDataForBusiness(activeBusiness.id);
+  const currentTopServices = currentDemoData.topServicesChart;
   const hasFinancialData = sessionType === "demo" || invoices.length > 0 || expenses.length > 0;
   const hasServicesData = sessionType === "demo" || bookings.length > 0 || invoices.length > 0;
 
@@ -200,16 +202,16 @@ export default function Dashboard() {
               <AreaChart data={activeChartData}>
                 <defs>
                   <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#C9A24B" stopOpacity={0.4} />
-                    <stop offset="100%" stopColor="#C9A24B" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.4} />
+                    <stop offset="100%" stopColor="#3B82F6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid stroke="#8C7A5B22" vertical={false} />
-                <XAxis dataKey="month" stroke="#8C7A5B" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="#8C7A5B" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(v) => `₹${v / 1000}k`} width={48} />
-                <Tooltip formatter={(v: any) => formatINR(Number(v))} contentStyle={{ borderRadius: 8, border: "1px solid #8C7A5B33", fontSize: 12 }} />
-                <Area type="monotone" dataKey="revenue" stroke="#3D2B1F" strokeWidth={2.5} fill="url(#revGrad)" />
-                <Area type="monotone" dataKey="expenses" stroke="#C9A24B" strokeWidth={2} fillOpacity={0} />
+                <CartesianGrid stroke="#64748B22" vertical={false} />
+                <XAxis dataKey="month" stroke="#64748B" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="#64748B" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(v) => `₹${v / 1000}k`} width={48} />
+                <Tooltip formatter={(v: any) => formatINR(Number(v))} contentStyle={{ borderRadius: 8, border: "1px solid #64748B33", fontSize: 12 }} />
+                <Area type="monotone" dataKey="revenue" stroke="#0F172A" strokeWidth={2.5} fill="url(#revGrad)" />
+                <Area type="monotone" dataKey="expenses" stroke="#3B82F6" strokeWidth={2} fillOpacity={0} />
               </AreaChart>
             </ResponsiveContainer>
           ) : (
@@ -270,11 +272,11 @@ export default function Dashboard() {
           <h2 className="font-display text-lg font-semibold text-charcoal mb-4">Top Revenue Services</h2>
           {hasServicesData ? (
             <ResponsiveContainer width="100%" height={180}>
-              <BarChart data={sessionType === "demo" ? topServicesChart : []} layout="vertical">
+              <BarChart data={sessionType === "demo" ? currentTopServices : []} layout="vertical">
                 <XAxis type="number" hide />
-                <YAxis dataKey="name" type="category" width={90} stroke="#8C7A5B" fontSize={11} tickLine={false} axisLine={false} />
-                <Tooltip formatter={(v: any) => formatINR(Number(v))} contentStyle={{ borderRadius: 8, border: "1px solid #8C7A5B33", fontSize: 12 }} />
-                <Bar dataKey="value" fill="#C9A24B" radius={[0, 4, 4, 0]} barSize={14} />
+                <YAxis dataKey="name" type="category" width={90} stroke="#64748B" fontSize={11} tickLine={false} axisLine={false} />
+                <Tooltip formatter={(v: any) => formatINR(Number(v))} contentStyle={{ borderRadius: 8, border: "1px solid #64748B33", fontSize: 12 }} />
+                <Bar dataKey="value" fill="#3B82F6" radius={[0, 4, 4, 0]} barSize={14} />
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -289,7 +291,7 @@ export default function Dashboard() {
         <Card className="p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <AlertTriangle size={16} className="text-[#8A5A2A]" />
+              <AlertTriangle size={16} className="text-[#64748B]" />
               <h2 className="font-display text-lg font-semibold text-charcoal">Low Stock Alerts</h2>
             </div>
             <Button size="sm" variant="ghost" onClick={() => setActiveModal("product")}>+ Item</Button>

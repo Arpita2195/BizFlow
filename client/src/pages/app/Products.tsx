@@ -84,11 +84,11 @@ export default function Products() {
         <Card className="p-5 flex flex-col gap-1">
           <span className="text-xs text-bronze font-semibold uppercase tracking-wider">Potential Revenue</span>
           <p className="font-display text-2xl font-bold text-charcoal">{formatINR(potentialRevenue)}</p>
-          <span className="text-[11px] text-[#3E5C3A] font-semibold">Expected retail value</span>
+          <span className="text-[11px] text-[#0891B2] font-semibold">Expected retail value</span>
         </Card>
         <Card className="p-5 flex flex-col gap-1">
           <span className="text-xs text-bronze font-semibold uppercase tracking-wider">Low Stock Items</span>
-          <p className="font-display text-2xl font-bold text-[#7A2E2E]">{lowStockCount}</p>
+          <p className="font-display text-2xl font-bold text-[#0F172A]">{lowStockCount}</p>
           <span className="text-[11px] text-bronze">Items at or below reorder threshold</span>
         </Card>
       </div>
@@ -170,7 +170,7 @@ export default function Products() {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => adjustStock(p.id, -1)}
-                          className="p-1 text-bronze hover:text-[#7A2E2E] rounded hover:bg-white/80"
+                          className="p-1 text-bronze hover:text-[#0F172A] rounded hover:bg-white/80"
                           title="Decrease Stock (-1)"
                         >
                           <MinusCircle size={18} />

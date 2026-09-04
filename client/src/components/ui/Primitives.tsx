@@ -8,13 +8,13 @@ export function Button({
   size?: "sm" | "md" | "lg";
   icon?: LucideIcon;
 }) {
-  const base = "inline-flex items-center justify-center gap-2 font-medium rounded-[8px] transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none";
+  const base = "inline-flex items-center justify-center gap-2 font-medium rounded-[8px] transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none cursor-pointer";
   const sizes = { sm: "text-sm px-3 py-1.5", md: "text-sm px-4 py-2.5", lg: "text-base px-6 py-3" };
   const variants = {
-    primary: "bg-espresso text-ivory hover:bg-charcoal shadow-soft",
-    secondary: "bg-transparent text-espresso border border-bronze/40 hover:bg-espresso/5",
-    ghost: "bg-transparent text-espresso hover:bg-espresso/5",
-    danger: "bg-[#7A2E2E] text-ivory hover:bg-[#611F1F]",
+    primary: "bg-[#3B82F6] text-white hover:bg-[#2563EB] shadow-soft",
+    secondary: "bg-transparent text-[#0F172A] border border-[#64748B]/30 hover:bg-[#3B82F6]/5",
+    ghost: "bg-transparent text-[#0F172A] hover:bg-[#3B82F6]/5",
+    danger: "bg-[#0F172A] text-white hover:bg-[#64748B]",
   };
   return (
     <button className={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...props}>
@@ -34,11 +34,11 @@ export function Card({ children, className = "" }: { children: React.ReactNode; 
 
 export function Badge({ children, tone = "neutral" }: { children: React.ReactNode; tone?: "neutral" | "gold" | "success" | "warning" | "danger" }) {
   const tones: Record<string, string> = {
-    neutral: "bg-bronze/10 text-espresso border-bronze/20",
-    gold: "bg-gold/15 text-[#7A5E22] border-gold/30",
-    success: "bg-[#3E5C3A]/10 text-[#3E5C3A] border-[#3E5C3A]/25",
-    warning: "bg-[#8A5A2A]/10 text-[#8A5A2A] border-[#8A5A2A]/25",
-    danger: "bg-[#7A2E2E]/10 text-[#7A2E2E] border-[#7A2E2E]/25",
+    neutral: "bg-[#64748B]/10 text-[#64748B] border-[#64748B]/20",
+    gold: "bg-[#3B82F6]/15 text-[#3B82F6] border-[#3B82F6]/30",
+    success: "bg-[#22D3EE]/15 text-[#0891B2] border-[#22D3EE]/30",
+    warning: "bg-[#64748B]/15 text-[#0F172A] border-[#64748B]/30",
+    danger: "bg-[#0F172A]/10 text-[#0F172A] border-[#0F172A]/20",
   };
   return (
     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${tones[tone]}`}>
@@ -54,15 +54,15 @@ export function StatCard({
   return (
     <Card className="p-5 flex flex-col gap-3 animate-fadeIn">
       <div className="flex items-center justify-between">
-        <span className="text-sm text-bronze">{label}</span>
-        <div className="w-8 h-8 rounded-full bg-gold/15 flex items-center justify-center">
-          <Icon size={16} className="text-[#7A5E22]" />
+        <span className="text-sm text-[#64748B]">{label}</span>
+        <div className="w-8 h-8 rounded-full bg-[#3B82F6]/15 flex items-center justify-center">
+          <Icon size={16} className="text-[#3B82F6]" />
         </div>
       </div>
       <div className="flex items-end justify-between">
-        <span className="font-display text-2xl text-charcoal">{value}</span>
+        <span className="font-display text-2xl font-bold text-[#0F172A]">{value}</span>
         {delta && (
-          <span className={`text-xs font-medium ${positive ? "text-[#3E5C3A]" : "text-[#7A2E2E]"}`}>{delta}</span>
+          <span className={`text-xs font-semibold ${positive ? "text-[#0891B2]" : "text-[#64748B]"}`}>{delta}</span>
         )}
       </div>
     </Card>
@@ -115,11 +115,11 @@ export function Modal({
 }) {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/60 backdrop-blur-xs animate-fadeIn">
-      <div className={`w-full ${maxWidth} bg-[#F4EFE6] border border-bronze/30 rounded-[14px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]`}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-bronze/20 bg-white/40">
-          <h3 className="font-display text-lg font-semibold text-charcoal">{title}</h3>
-          <button onClick={onClose} className="p-1 rounded-md text-bronze hover:text-charcoal hover:bg-espresso/5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0F172A]/70 backdrop-blur-xs animate-fadeIn">
+      <div className={`w-full ${maxWidth} bg-[#F8FAFC] border border-[#64748B]/30 rounded-[14px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]`}>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#64748B]/20 bg-white/80">
+          <h3 className="font-display text-lg font-semibold text-[#0F172A]">{title}</h3>
+          <button onClick={onClose} className="p-1 rounded-md text-[#64748B] hover:text-[#0F172A] hover:bg-[#3B82F6]/10 cursor-pointer">
             ✕
           </button>
         </div>
@@ -136,11 +136,11 @@ export function Drawer({
 }) {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-charcoal/60 backdrop-blur-xs animate-fadeIn">
-      <div className="w-full max-w-lg bg-[#F4EFE6] border-l border-bronze/30 h-full shadow-2xl flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-bronze/20 bg-white/50">
-          <h3 className="font-display text-lg font-semibold text-charcoal">{title}</h3>
-          <button onClick={onClose} className="p-1 rounded-md text-bronze hover:text-charcoal hover:bg-espresso/5">
+    <div className="fixed inset-0 z-50 flex justify-end bg-[#0F172A]/70 backdrop-blur-xs animate-fadeIn">
+      <div className="w-full max-w-lg bg-[#F8FAFC] border-l border-[#64748B]/30 h-full shadow-2xl flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#64748B]/20 bg-white/80">
+          <h3 className="font-display text-lg font-semibold text-[#0F172A]">{title}</h3>
+          <button onClick={onClose} className="p-1 rounded-md text-[#64748B] hover:text-[#0F172A] hover:bg-[#3B82F6]/10 cursor-pointer">
             ✕
           </button>
         </div>

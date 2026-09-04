@@ -75,14 +75,14 @@ export default function Analytics() {
         {hasData ? (
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={dynamicChart}>
-              <CartesianGrid stroke="#8C7A5B22" vertical={false} />
-              <XAxis dataKey="month" stroke="#8C7A5B" fontSize={12} tickLine={false} axisLine={false} />
-              <YAxis stroke="#8C7A5B" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(v) => `₹${v / 1000}k`} width={48} />
-              <Tooltip formatter={(v: any) => formatINR(Number(v))} contentStyle={{ borderRadius: 8, border: "1px solid #8C7A5B33", fontSize: 12 }} />
+              <CartesianGrid stroke="#64748B22" vertical={false} />
+              <XAxis dataKey="month" stroke="#64748B" fontSize={12} tickLine={false} axisLine={false} />
+              <YAxis stroke="#64748B" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(v) => `₹${v / 1000}k`} width={48} />
+              <Tooltip formatter={(v: any) => formatINR(Number(v))} contentStyle={{ borderRadius: 8, border: "1px solid #64748B33", fontSize: 12 }} />
               <Legend />
-              <Line name="Revenue" type="monotone" dataKey="revenue" stroke="#3D2B1F" strokeWidth={3} />
-              <Line name="Expenses" type="monotone" dataKey="expenses" stroke="#C9A24B" strokeWidth={2} strokeDasharray="3 3" />
-              <Line name="Net Profit" type="monotone" dataKey="profit" stroke="#3E5C3A" strokeWidth={2.5} />
+              <Line name="Revenue" type="monotone" dataKey="revenue" stroke="#0F172A" strokeWidth={3} />
+              <Line name="Expenses" type="monotone" dataKey="expenses" stroke="#3B82F6" strokeWidth={2} strokeDasharray="3 3" />
+              <Line name="Net Profit" type="monotone" dataKey="profit" stroke="#10B981" strokeWidth={2.5} />
             </LineChart>
           </ResponsiveContainer>
         ) : (
@@ -107,7 +107,7 @@ function MetricCard({ label, value, delta, period }: { label: string; value: str
         <span className="font-display text-2xl font-bold text-charcoal">{value}</span>
       </div>
       <div className="flex items-center gap-1 text-[11px]">
-        <span className="font-bold text-[#3E5C3A]">{delta}</span>
+        <span className="font-bold text-[#0891B2]">{delta}</span>
         <span className="text-bronze">{period}</span>
       </div>
     </Card>

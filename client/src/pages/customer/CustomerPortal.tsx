@@ -12,16 +12,16 @@ export default function CustomerPortal() {
   const myInvoices = invoices.slice(0, 2);
 
   return (
-    <div className="min-h-screen bg-[#F4EFE6] text-[#1A1512] flex flex-col">
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex flex-col">
       {/* Header Bar */}
-      <header className="bg-[#1A1512] text-[#F4EFE6] border-b border-[#8C7A5B]/20 px-6 py-4 flex items-center justify-between">
+      <header className="bg-[#0F172A] text-[#F8FAFC] border-b border-[#64748B]/20 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link to="/app" className="p-2 text-[#8C7A5B] hover:text-white rounded-lg transition">
+          <Link to="/app" className="p-2 text-[#64748B] hover:text-white rounded-lg transition">
             <ArrowLeft size={20} />
           </Link>
           <div>
             <span className="font-display font-bold text-lg text-white">BizFlow Customer Portal</span>
-            <p className="text-xs text-[#C9A24B]">{activeBusiness.name}</p>
+            <p className="text-xs text-[#3B82F6]">{activeBusiness.name}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -33,15 +33,15 @@ export default function CustomerPortal() {
       {/* Main Container */}
       <main className="max-w-4xl mx-auto px-6 py-10 flex-1 w-full flex flex-col gap-6 animate-fadeIn">
         {/* Welcome Card */}
-        <div className="p-6 bg-[#1A1512] text-[#F4EFE6] border border-[#C9A24B]/30 rounded-[16px] shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="p-6 bg-[#0F172A] text-[#F8FAFC] border border-[#3B82F6]/30 rounded-[16px] shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <span className="text-xs text-[#C9A24B] font-bold uppercase tracking-wider">Customer Portal</span>
+            <span className="text-xs text-[#3B82F6] font-bold uppercase tracking-wider">Customer Portal</span>
             <h1 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">Welcome back, {user.name}</h1>
-            <p className="text-xs text-[#F4EFE6]/80 mt-1">Manage your appointments, past invoices, and loyalty rewards points.</p>
+            <p className="text-xs text-[#F8FAFC]/80 mt-1">Manage your appointments, past invoices, and loyalty rewards points.</p>
           </div>
           <div className="p-4 rounded-xl bg-white/10 border border-white/20 text-center shrink-0 min-w-[120px]">
-            <span className="text-[10px] text-[#C9A24B] font-bold uppercase tracking-wider">Loyalty Balance</span>
-            <p className="font-display text-2xl font-bold text-[#C9A24B] mt-0.5">340 Pts</p>
+            <span className="text-[10px] text-[#3B82F6] font-bold uppercase tracking-wider">Loyalty Balance</span>
+            <p className="font-display text-2xl font-bold text-[#3B82F6] mt-0.5">340 Pts</p>
           </div>
         </div>
 

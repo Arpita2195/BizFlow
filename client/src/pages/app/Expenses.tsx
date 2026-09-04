@@ -7,12 +7,12 @@ import PageHeader from "../../components/ui/PageHeader";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const categoryColors: Record<string, string> = {
-  Rent: "#3D2B1F",
-  Salary: "#C9A24B",
-  Inventory: "#8C7A5B",
-  Marketing: "#7A5E22",
-  Utilities: "#5A4632",
-  Software: "#4A3B2C",
+  Rent: "#0F172A",
+  Salary: "#3B82F6",
+  Inventory: "#64748B",
+  Marketing: "#22D3EE",
+  Utilities: "#22D3EE",
+  Software: "#0F172A",
 };
 
 export default function Expenses() {
@@ -84,7 +84,7 @@ export default function Expenses() {
                     </td>
                     <td className="px-5 py-3.5 text-xs text-bronze">{e.paymentMethod || "UPI"}</td>
                     <td className="px-5 py-3.5 text-xs text-bronze">{e.date}</td>
-                    <td className="px-5 py-3.5 text-right font-bold text-sm text-[#7A2E2E]">{formatINR(e.amount)}</td>
+                    <td className="px-5 py-3.5 text-right font-bold text-sm text-[#0F172A]">{formatINR(e.amount)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -107,7 +107,7 @@ export default function Expenses() {
                   <p className="text-sm font-bold text-charcoal">{e.description}</p>
                   <p className="text-xs text-bronze">{e.category} • {e.date}</p>
                 </div>
-                <p className="text-sm font-bold text-[#7A2E2E]">{formatINR(e.amount)}</p>
+                <p className="text-sm font-bold text-[#0F172A]">{formatINR(e.amount)}</p>
               </div>
             ))}
           </div>

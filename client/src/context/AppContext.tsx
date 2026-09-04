@@ -21,7 +21,8 @@ import {
   terminologyMap,
   BusinessTerminology,
   formatINR,
-  BusinessType
+  BusinessType,
+  getDemoDataForBusiness
 } from "../data/demoData";
 
 export interface UserSession {
@@ -153,6 +154,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setReviews([]);
         setProducts([]);
         setStaff([]);
+      } else if (sessionType === "demo" && savedBusiness) {
+        const bus = JSON.parse(savedBusiness) as Business;
+        const found = demoBusinesses.find((b) => b.id === bus.id);
+        if (found) {
+          setActiveBusiness(found);
+          setUser({
+            id: "u_demo_" + found.id,
+            name: found.ownerName,
+            email: found.email,
+            role: "OWNER"
+          });
+          const dataset = getDemoDataForBusiness(found.id);
+          setCustomers(dataset.customers);
+          setBookings(dataset.bookings);
+          setProducts(dataset.products);
+          setInvoices(dataset.invoices);
+          setQuotations(dataset.quotations);
+          setExpenses(dataset.expenses);
+          setStaff(dataset.staff);
+          setReviews(dataset.reviews);
+        }
       }
     } catch (e) {
       console.error("Error restoring session:", e);
@@ -220,7 +242,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       businessHours: data.businessHours || "Mon-Sat: 10:00 AM - 08:00 PM | Sun: Closed",
       currency: "INR",
       subscriptionTier: "BUSINESS",
-      accentColor: "#C9A24B"
+      accentColor: "#3B82F6"
     };
 
     setUser(newUser);
@@ -286,7 +308,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       businessHours: "Mon-Sat: 10:00 AM - 08:00 PM | Sun: Closed",
       currency: "INR",
       subscriptionTier: "BUSINESS",
-      accentColor: "#C9A24B"
+      accentColor: "#3B82F6"
     };
 
     setUser(newUser);
@@ -342,17 +364,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       email: target.email,
       role: "OWNER"
     });
-    // Restore demo data for exploring demo Hub
-    setCustomers(initialCustomers);
-    setBookings(initialBookings);
-    setProducts(initialProducts);
-    setInvoices(initialInvoices);
-    setQuotations(initialQuotations);
-    setExpenses(initialExpenses);
-    setStaff(initialStaff);
-    setReviews(initialReviews);
+    // Restore demo data for exploring demo Hub with business-specific niche data
+    const dataset = getDemoDataForBusiness(target.id);
+    setCustomers(dataset.customers);
+    setBookings(dataset.bookings);
+    setProducts(dataset.products);
+    setInvoices(dataset.invoices);
+    setQuotations(dataset.quotations);
+    setExpenses(dataset.expenses);
+    setStaff(dataset.staff);
+    setReviews(dataset.reviews);
 
     localStorage.setItem("bizflow_session_type", "demo");
+    localStorage.setItem("bizflow_business", JSON.stringify(target));
+    localStorage.setItem("bizflow_user", JSON.stringify({
+      id: "u_demo_" + target.id,
+      name: target.ownerName,
+      email: target.email,
+      role: "OWNER"
+    }));
     showToast(`Switched workspace to ${target.name} (${target.type.toUpperCase()})`, "info");
   };
 

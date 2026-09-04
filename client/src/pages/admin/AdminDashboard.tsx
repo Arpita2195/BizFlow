@@ -13,19 +13,19 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4EFE6] text-[#1A1512] flex flex-col">
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex flex-col">
       {/* Platform Admin Navigation Header */}
-      <header className="bg-[#1A1512] text-[#F4EFE6] border-b border-[#8C7A5B]/20 px-6 py-4 flex items-center justify-between">
+      <header className="bg-[#0F172A] text-[#F8FAFC] border-b border-[#64748B]/20 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link to="/app" className="p-2 text-[#8C7A5B] hover:text-white rounded-lg transition">
+          <Link to="/app" className="p-2 text-[#64748B] hover:text-white rounded-lg transition">
             <ArrowLeft size={20} />
           </Link>
           <div>
             <div className="flex items-center gap-2">
-              <Shield size={18} className="text-[#C9A24B]" />
+              <Shield size={18} className="text-[#3B82F6]" />
               <span className="font-display font-bold text-lg text-white">BizFlow Platform Admin</span>
             </div>
-            <p className="text-xs text-[#8C7A5B]">Multi-tenant system monitoring dashboard</p>
+            <p className="text-xs text-[#64748B]">Multi-tenant system monitoring dashboard</p>
           </div>
         </div>
         <Badge tone="gold">Super Admin Access</Badge>
@@ -45,11 +45,11 @@ export default function AdminDashboard() {
           </Card>
           <Card className="p-5 flex flex-col gap-1">
             <span className="text-xs text-bronze font-semibold uppercase">Platform MRR</span>
-            <p className="font-display text-2xl font-bold text-[#3E5C3A]">₹18,45,000</p>
+            <p className="font-display text-2xl font-bold text-[#0891B2]">₹18,45,000</p>
           </Card>
           <Card className="p-5 flex flex-col gap-1">
             <span className="text-xs text-bronze font-semibold uppercase">System Uptime</span>
-            <p className="font-display text-2xl font-bold text-[#C9A24B]">99.98%</p>
+            <p className="font-display text-2xl font-bold text-[#3B82F6]">99.98%</p>
           </Card>
         </div>
 
