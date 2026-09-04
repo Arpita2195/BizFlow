@@ -70,7 +70,7 @@ export default function Invoices() {
   const [dispatchModal, setDispatchModal] = useState<Invoice | null>(null);
 
   const handleDispatchEmail = (inv: Invoice) => {
-    fetch("http://localhost:5000/api/messaging/send-invoice", {
+    fetch("/api/messaging/send-invoice", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

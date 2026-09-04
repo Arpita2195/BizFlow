@@ -345,7 +345,10 @@ app.post("/api/messaging/broadcast-offer", async (req: Request, res: Response) =
   }
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`⚡ [BizFlow API Server] Running on http://localhost:${PORT}`);
-});
+export default app;
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`⚡ [BizFlow API Server] Running on http://localhost:${PORT}`);
+  });
+}

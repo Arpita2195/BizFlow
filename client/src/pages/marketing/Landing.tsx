@@ -354,7 +354,7 @@ function ContactSection() {
     if (!form.name || !form.email || !form.message) return;
     setLoading(true);
 
-    fetch("http://localhost:5000/api/contact/inquiry", {
+    fetch("/api/contact/inquiry", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)

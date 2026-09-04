@@ -29,7 +29,7 @@ export default function Customers() {
 
   const handleBroadcastSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetch("http://localhost:5000/api/messaging/broadcast-offer", {
+    fetch("/api/messaging/broadcast-offer", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
