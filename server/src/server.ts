@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 import nodemailer from "nodemailer";
 import dns from "dns";
-import { User, Business, Customer, Booking, Invoice, Product, Expense, Staff, Review, AuditLog } from "./models/allModels.js";
+import { User, Business, Customer, Booking, Invoice, Product, Expense, Staff, Review, AuditLog } from "./models/allModels";
 
 try {
   dns.setServers(["8.8.8.8", "1.1.1.1"]);
